@@ -13,8 +13,10 @@ import { os } from './software/os.js';
 import { location } from './locations/location.js';
 import { dbinstance } from './software/dbinstance.js';
 import { product } from './software/product.js';
+import { company } from './organization/company.js';
+import { organization } from './organization/organization.js';
+import { department } from './organization/department.js';
 import { enums } from './enums.js';
-
 
 export const typeDefArray = [
   root,
@@ -25,12 +27,15 @@ export const typeDefArray = [
   person,
   component,
   cpu,
-  storage, 
+  storage,
   software,
   product,
   memory,
   os,
   dbinstance,
   location,
-  enums
+  company,
+  organization,
+  department,
+  enums,
 ];
