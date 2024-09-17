@@ -1397,12 +1397,15 @@ export type CiRootConnectWhere = {
 export type CiRootCreateInput = {
   Application?: InputMaybe<ApplicationCreateInput>;
   CPU?: InputMaybe<CpuCreateInput>;
+  Company?: InputMaybe<CompanyCreateInput>;
   Computer?: InputMaybe<ComputerCreateInput>;
   DatabaseInstance?: InputMaybe<DatabaseInstanceCreateInput>;
+  Department?: InputMaybe<DepartmentCreateInput>;
   IP?: InputMaybe<IpCreateInput>;
   Location?: InputMaybe<LocationCreateInput>;
   Memory?: InputMaybe<MemoryCreateInput>;
   OperatingSystem?: InputMaybe<OperatingSystemCreateInput>;
+  Organization?: InputMaybe<OrganizationCreateInput>;
   Person?: InputMaybe<PersonCreateInput>;
   Product?: InputMaybe<ProductCreateInput>;
   Storage?: InputMaybe<StorageCreateInput>;
@@ -1417,12 +1420,15 @@ export type CiRootEdge = {
 export enum CiRootImplementation {
   Application = 'Application',
   Cpu = 'CPU',
+  Company = 'Company',
   Computer = 'Computer',
   DatabaseInstance = 'DatabaseInstance',
+  Department = 'Department',
   Ip = 'IP',
   Location = 'Location',
   Memory = 'Memory',
   OperatingSystem = 'OperatingSystem',
+  Organization = 'Organization',
   Person = 'Person',
   Product = 'Product',
   Storage = 'Storage'
@@ -1490,6 +1496,377 @@ export type CiRootsConnection = {
   edges: Array<CiRootEdge>;
   pageInfo: PageInfo;
   totalCount: Scalars['Int']['output'];
+};
+
+export type CompaniesConnection = {
+  __typename?: 'CompaniesConnection';
+  edges: Array<CompanyEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type Company = CiRoot & {
+  __typename?: 'Company';
+  assetTag?: Maybe<Scalars['String']['output']>;
+  cost?: Maybe<Scalars['Float']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  instanceId: Scalars['ID']['output'];
+  isMarkedDelete?: Maybe<Scalars['Boolean']['output']>;
+  name: Scalars['String']['output'];
+  organization: Array<Organization>;
+  organizationAggregate?: Maybe<CompanyOrganizationOrganizationAggregationSelection>;
+  organizationConnection: CompanyOrganizationConnection;
+  type?: Maybe<Scalars['String']['output']>;
+};
+
+
+export type CompanyOrganizationArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<OrganizationOptions>;
+  where?: InputMaybe<OrganizationWhere>;
+};
+
+
+export type CompanyOrganizationAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<OrganizationWhere>;
+};
+
+
+export type CompanyOrganizationConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<CompanyOrganizationConnectionSort>>;
+  where?: InputMaybe<CompanyOrganizationConnectionWhere>;
+};
+
+export type CompanyAggregateSelection = {
+  __typename?: 'CompanyAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  count: Scalars['Int']['output'];
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+  type: StringAggregateSelection;
+};
+
+export type CompanyConnectInput = {
+  organization?: InputMaybe<Array<CompanyOrganizationConnectFieldInput>>;
+};
+
+export type CompanyConnectOrCreateInput = {
+  organization?: InputMaybe<Array<CompanyOrganizationConnectOrCreateFieldInput>>;
+};
+
+export type CompanyConnectOrCreateWhere = {
+  node: CompanyUniqueWhere;
+};
+
+export type CompanyConnectWhere = {
+  node: CompanyWhere;
+};
+
+export type CompanyCreateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+  organization?: InputMaybe<CompanyOrganizationFieldInput>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CompanyDeleteInput = {
+  organization?: InputMaybe<Array<CompanyOrganizationDeleteFieldInput>>;
+};
+
+export type CompanyDisconnectInput = {
+  organization?: InputMaybe<Array<CompanyOrganizationDisconnectFieldInput>>;
+};
+
+export type CompanyEdge = {
+  __typename?: 'CompanyEdge';
+  cursor: Scalars['String']['output'];
+  node: Company;
+};
+
+export type CompanyOnCreateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CompanyOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  /** Specify one or more CompanySort objects to sort Companies by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<CompanySort>>;
+};
+
+export type CompanyOrganizationAggregateInput = {
+  AND?: InputMaybe<Array<CompanyOrganizationAggregateInput>>;
+  NOT?: InputMaybe<CompanyOrganizationAggregateInput>;
+  OR?: InputMaybe<Array<CompanyOrganizationAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<CompanyOrganizationNodeAggregationWhereInput>;
+};
+
+export type CompanyOrganizationConnectFieldInput = {
+  connect?: InputMaybe<Array<OrganizationConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<OrganizationConnectWhere>;
+};
+
+export type CompanyOrganizationConnectOrCreateFieldInput = {
+  onCreate: CompanyOrganizationConnectOrCreateFieldInputOnCreate;
+  where: OrganizationConnectOrCreateWhere;
+};
+
+export type CompanyOrganizationConnectOrCreateFieldInputOnCreate = {
+  node: OrganizationOnCreateInput;
+};
+
+export type CompanyOrganizationConnection = {
+  __typename?: 'CompanyOrganizationConnection';
+  edges: Array<CompanyOrganizationRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type CompanyOrganizationConnectionSort = {
+  node?: InputMaybe<OrganizationSort>;
+};
+
+export type CompanyOrganizationConnectionWhere = {
+  AND?: InputMaybe<Array<CompanyOrganizationConnectionWhere>>;
+  NOT?: InputMaybe<CompanyOrganizationConnectionWhere>;
+  OR?: InputMaybe<Array<CompanyOrganizationConnectionWhere>>;
+  node?: InputMaybe<OrganizationWhere>;
+};
+
+export type CompanyOrganizationCreateFieldInput = {
+  node: OrganizationCreateInput;
+};
+
+export type CompanyOrganizationDeleteFieldInput = {
+  delete?: InputMaybe<OrganizationDeleteInput>;
+  where?: InputMaybe<CompanyOrganizationConnectionWhere>;
+};
+
+export type CompanyOrganizationDisconnectFieldInput = {
+  disconnect?: InputMaybe<OrganizationDisconnectInput>;
+  where?: InputMaybe<CompanyOrganizationConnectionWhere>;
+};
+
+export type CompanyOrganizationFieldInput = {
+  connect?: InputMaybe<Array<CompanyOrganizationConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<CompanyOrganizationConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<CompanyOrganizationCreateFieldInput>>;
+};
+
+export type CompanyOrganizationNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<CompanyOrganizationNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<CompanyOrganizationNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<CompanyOrganizationNodeAggregationWhereInput>>;
+  assetTag_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  cost_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CompanyOrganizationOrganizationAggregationSelection = {
+  __typename?: 'CompanyOrganizationOrganizationAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<CompanyOrganizationOrganizationNodeAggregateSelection>;
+};
+
+export type CompanyOrganizationOrganizationNodeAggregateSelection = {
+  __typename?: 'CompanyOrganizationOrganizationNodeAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
+export type CompanyOrganizationRelationship = {
+  __typename?: 'CompanyOrganizationRelationship';
+  cursor: Scalars['String']['output'];
+  node: Organization;
+};
+
+export type CompanyOrganizationUpdateConnectionInput = {
+  node?: InputMaybe<OrganizationUpdateInput>;
+};
+
+export type CompanyOrganizationUpdateFieldInput = {
+  connect?: InputMaybe<Array<CompanyOrganizationConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<CompanyOrganizationConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<CompanyOrganizationCreateFieldInput>>;
+  delete?: InputMaybe<Array<CompanyOrganizationDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<CompanyOrganizationDisconnectFieldInput>>;
+  update?: InputMaybe<CompanyOrganizationUpdateConnectionInput>;
+  where?: InputMaybe<CompanyOrganizationConnectionWhere>;
+};
+
+export type CompanyRelationInput = {
+  organization?: InputMaybe<Array<CompanyOrganizationCreateFieldInput>>;
+};
+
+/** Fields to sort Companies by. The order in which sorts are applied is not guaranteed when specifying many fields in one CompanySort object. */
+export type CompanySort = {
+  assetTag?: InputMaybe<SortDirection>;
+  cost?: InputMaybe<SortDirection>;
+  description?: InputMaybe<SortDirection>;
+  instanceId?: InputMaybe<SortDirection>;
+  isMarkedDelete?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+  type?: InputMaybe<SortDirection>;
+};
+
+export type CompanyUniqueWhere = {
+  instanceId?: InputMaybe<Scalars['ID']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CompanyUpdateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  cost_ADD?: InputMaybe<Scalars['Float']['input']>;
+  cost_DIVIDE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MULTIPLY?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUBTRACT?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  organization?: InputMaybe<Array<CompanyOrganizationUpdateFieldInput>>;
+  type?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CompanyWhere = {
+  AND?: InputMaybe<Array<CompanyWhere>>;
+  NOT?: InputMaybe<CompanyWhere>;
+  OR?: InputMaybe<Array<CompanyWhere>>;
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  assetTag_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  assetTag_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  assetTag_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  assetTag_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  cost_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cost_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  description_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  description_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  description_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  instanceId?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_CONTAINS?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_IN?: InputMaybe<Array<Scalars['ID']['input']>>;
+  instanceId_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  organizationAggregate?: InputMaybe<CompanyOrganizationAggregateInput>;
+  /** Return Companies where all of the related CompanyOrganizationConnections match this filter */
+  organizationConnection_ALL?: InputMaybe<CompanyOrganizationConnectionWhere>;
+  /** Return Companies where none of the related CompanyOrganizationConnections match this filter */
+  organizationConnection_NONE?: InputMaybe<CompanyOrganizationConnectionWhere>;
+  /** Return Companies where one of the related CompanyOrganizationConnections match this filter */
+  organizationConnection_SINGLE?: InputMaybe<CompanyOrganizationConnectionWhere>;
+  /** Return Companies where some of the related CompanyOrganizationConnections match this filter */
+  organizationConnection_SOME?: InputMaybe<CompanyOrganizationConnectionWhere>;
+  /** Return Companies where all of the related Organizations match this filter */
+  organization_ALL?: InputMaybe<OrganizationWhere>;
+  /** Return Companies where none of the related Organizations match this filter */
+  organization_NONE?: InputMaybe<OrganizationWhere>;
+  /** Return Companies where one of the related Organizations match this filter */
+  organization_SINGLE?: InputMaybe<OrganizationWhere>;
+  /** Return Companies where some of the related Organizations match this filter */
+  organization_SOME?: InputMaybe<OrganizationWhere>;
+  type?: InputMaybe<Scalars['String']['input']>;
+  type_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  type_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  type_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  type_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type Component = {
@@ -2419,6 +2796,12 @@ export type CreateApplicationsMutationResponse = {
   info: CreateInfo;
 };
 
+export type CreateCompaniesMutationResponse = {
+  __typename?: 'CreateCompaniesMutationResponse';
+  companies: Array<Company>;
+  info: CreateInfo;
+};
+
 export type CreateComputersMutationResponse = {
   __typename?: 'CreateComputersMutationResponse';
   computers: Array<Computer>;
@@ -2434,6 +2817,12 @@ export type CreateCpusMutationResponse = {
 export type CreateDatabaseInstancesMutationResponse = {
   __typename?: 'CreateDatabaseInstancesMutationResponse';
   databaseInstances: Array<DatabaseInstance>;
+  info: CreateInfo;
+};
+
+export type CreateDepartmentsMutationResponse = {
+  __typename?: 'CreateDepartmentsMutationResponse';
+  departments: Array<Department>;
   info: CreateInfo;
 };
 
@@ -2468,6 +2857,12 @@ export type CreateOperatingSystemsMutationResponse = {
   __typename?: 'CreateOperatingSystemsMutationResponse';
   info: CreateInfo;
   operatingSystems: Array<OperatingSystem>;
+};
+
+export type CreateOrganizationsMutationResponse = {
+  __typename?: 'CreateOrganizationsMutationResponse';
+  info: CreateInfo;
+  organizations: Array<Organization>;
 };
 
 export type CreatePeopleMutationResponse = {
@@ -2918,6 +3313,618 @@ export type DeleteInfo = {
   bookmark?: Maybe<Scalars['String']['output']>;
   nodesDeleted: Scalars['Int']['output'];
   relationshipsDeleted: Scalars['Int']['output'];
+};
+
+export type Department = CiRoot & {
+  __typename?: 'Department';
+  assetTag?: Maybe<Scalars['String']['output']>;
+  cost?: Maybe<Scalars['Float']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+  instanceId: Scalars['ID']['output'];
+  isMarkedDelete?: Maybe<Scalars['Boolean']['output']>;
+  name: Scalars['String']['output'];
+  organization: Array<Organization>;
+  organizationAggregate?: Maybe<DepartmentOrganizationOrganizationAggregationSelection>;
+  organizationConnection: DepartmentOrganizationConnection;
+  works: Array<Person>;
+  worksAggregate?: Maybe<DepartmentPersonWorksAggregationSelection>;
+  worksConnection: DepartmentWorksConnection;
+};
+
+
+export type DepartmentOrganizationArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<OrganizationOptions>;
+  where?: InputMaybe<OrganizationWhere>;
+};
+
+
+export type DepartmentOrganizationAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<OrganizationWhere>;
+};
+
+
+export type DepartmentOrganizationConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<DepartmentOrganizationConnectionSort>>;
+  where?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+};
+
+
+export type DepartmentWorksArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<PersonOptions>;
+  where?: InputMaybe<PersonWhere>;
+};
+
+
+export type DepartmentWorksAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<PersonWhere>;
+};
+
+
+export type DepartmentWorksConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<DepartmentWorksConnectionSort>>;
+  where?: InputMaybe<DepartmentWorksConnectionWhere>;
+};
+
+export type DepartmentAggregateSelection = {
+  __typename?: 'DepartmentAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  count: Scalars['Int']['output'];
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
+export type DepartmentConnectInput = {
+  organization?: InputMaybe<Array<DepartmentOrganizationConnectFieldInput>>;
+  works?: InputMaybe<Array<DepartmentWorksConnectFieldInput>>;
+};
+
+export type DepartmentConnectOrCreateInput = {
+  organization?: InputMaybe<Array<DepartmentOrganizationConnectOrCreateFieldInput>>;
+  works?: InputMaybe<Array<DepartmentWorksConnectOrCreateFieldInput>>;
+};
+
+export type DepartmentConnectOrCreateWhere = {
+  node: DepartmentUniqueWhere;
+};
+
+export type DepartmentConnectWhere = {
+  node: DepartmentWhere;
+};
+
+export type DepartmentCreateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+  organization?: InputMaybe<DepartmentOrganizationFieldInput>;
+  works?: InputMaybe<DepartmentWorksFieldInput>;
+};
+
+export type DepartmentDeleteInput = {
+  organization?: InputMaybe<Array<DepartmentOrganizationDeleteFieldInput>>;
+  works?: InputMaybe<Array<DepartmentWorksDeleteFieldInput>>;
+};
+
+export type DepartmentDisconnectInput = {
+  organization?: InputMaybe<Array<DepartmentOrganizationDisconnectFieldInput>>;
+  works?: InputMaybe<Array<DepartmentWorksDisconnectFieldInput>>;
+};
+
+export type DepartmentEdge = {
+  __typename?: 'DepartmentEdge';
+  cursor: Scalars['String']['output'];
+  node: Department;
+};
+
+export type DepartmentOnCreateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+};
+
+export type DepartmentOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  /** Specify one or more DepartmentSort objects to sort Departments by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<DepartmentSort>>;
+};
+
+export type DepartmentOrganizationAggregateInput = {
+  AND?: InputMaybe<Array<DepartmentOrganizationAggregateInput>>;
+  NOT?: InputMaybe<DepartmentOrganizationAggregateInput>;
+  OR?: InputMaybe<Array<DepartmentOrganizationAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<DepartmentOrganizationNodeAggregationWhereInput>;
+};
+
+export type DepartmentOrganizationConnectFieldInput = {
+  connect?: InputMaybe<Array<OrganizationConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<OrganizationConnectWhere>;
+};
+
+export type DepartmentOrganizationConnectOrCreateFieldInput = {
+  onCreate: DepartmentOrganizationConnectOrCreateFieldInputOnCreate;
+  where: OrganizationConnectOrCreateWhere;
+};
+
+export type DepartmentOrganizationConnectOrCreateFieldInputOnCreate = {
+  node: OrganizationOnCreateInput;
+};
+
+export type DepartmentOrganizationConnection = {
+  __typename?: 'DepartmentOrganizationConnection';
+  edges: Array<DepartmentOrganizationRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type DepartmentOrganizationConnectionSort = {
+  node?: InputMaybe<OrganizationSort>;
+};
+
+export type DepartmentOrganizationConnectionWhere = {
+  AND?: InputMaybe<Array<DepartmentOrganizationConnectionWhere>>;
+  NOT?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+  OR?: InputMaybe<Array<DepartmentOrganizationConnectionWhere>>;
+  node?: InputMaybe<OrganizationWhere>;
+};
+
+export type DepartmentOrganizationCreateFieldInput = {
+  node: OrganizationCreateInput;
+};
+
+export type DepartmentOrganizationDeleteFieldInput = {
+  delete?: InputMaybe<OrganizationDeleteInput>;
+  where?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+};
+
+export type DepartmentOrganizationDisconnectFieldInput = {
+  disconnect?: InputMaybe<OrganizationDisconnectInput>;
+  where?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+};
+
+export type DepartmentOrganizationFieldInput = {
+  connect?: InputMaybe<Array<DepartmentOrganizationConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<DepartmentOrganizationConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<DepartmentOrganizationCreateFieldInput>>;
+};
+
+export type DepartmentOrganizationNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<DepartmentOrganizationNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<DepartmentOrganizationNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<DepartmentOrganizationNodeAggregationWhereInput>>;
+  assetTag_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  cost_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type DepartmentOrganizationOrganizationAggregationSelection = {
+  __typename?: 'DepartmentOrganizationOrganizationAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<DepartmentOrganizationOrganizationNodeAggregateSelection>;
+};
+
+export type DepartmentOrganizationOrganizationNodeAggregateSelection = {
+  __typename?: 'DepartmentOrganizationOrganizationNodeAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
+export type DepartmentOrganizationRelationship = {
+  __typename?: 'DepartmentOrganizationRelationship';
+  cursor: Scalars['String']['output'];
+  node: Organization;
+};
+
+export type DepartmentOrganizationUpdateConnectionInput = {
+  node?: InputMaybe<OrganizationUpdateInput>;
+};
+
+export type DepartmentOrganizationUpdateFieldInput = {
+  connect?: InputMaybe<Array<DepartmentOrganizationConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<DepartmentOrganizationConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<DepartmentOrganizationCreateFieldInput>>;
+  delete?: InputMaybe<Array<DepartmentOrganizationDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<DepartmentOrganizationDisconnectFieldInput>>;
+  update?: InputMaybe<DepartmentOrganizationUpdateConnectionInput>;
+  where?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+};
+
+export type DepartmentPersonWorksAggregationSelection = {
+  __typename?: 'DepartmentPersonWorksAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<DepartmentPersonWorksNodeAggregateSelection>;
+};
+
+export type DepartmentPersonWorksNodeAggregateSelection = {
+  __typename?: 'DepartmentPersonWorksNodeAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  description: StringAggregateSelection;
+  firstName: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  lastName: StringAggregateSelection;
+  midddleName: StringAggregateSelection;
+};
+
+export type DepartmentRelationInput = {
+  organization?: InputMaybe<Array<DepartmentOrganizationCreateFieldInput>>;
+  works?: InputMaybe<Array<DepartmentWorksCreateFieldInput>>;
+};
+
+/** Fields to sort Departments by. The order in which sorts are applied is not guaranteed when specifying many fields in one DepartmentSort object. */
+export type DepartmentSort = {
+  assetTag?: InputMaybe<SortDirection>;
+  cost?: InputMaybe<SortDirection>;
+  description?: InputMaybe<SortDirection>;
+  instanceId?: InputMaybe<SortDirection>;
+  isMarkedDelete?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+};
+
+export type DepartmentUniqueWhere = {
+  instanceId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type DepartmentUpdateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  cost_ADD?: InputMaybe<Scalars['Float']['input']>;
+  cost_DIVIDE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MULTIPLY?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUBTRACT?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  organization?: InputMaybe<Array<DepartmentOrganizationUpdateFieldInput>>;
+  works?: InputMaybe<Array<DepartmentWorksUpdateFieldInput>>;
+};
+
+export type DepartmentWhere = {
+  AND?: InputMaybe<Array<DepartmentWhere>>;
+  NOT?: InputMaybe<DepartmentWhere>;
+  OR?: InputMaybe<Array<DepartmentWhere>>;
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  assetTag_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  assetTag_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  assetTag_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  assetTag_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  cost_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cost_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  description_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  description_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  description_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  instanceId?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_CONTAINS?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_IN?: InputMaybe<Array<Scalars['ID']['input']>>;
+  instanceId_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  organizationAggregate?: InputMaybe<DepartmentOrganizationAggregateInput>;
+  /** Return Departments where all of the related DepartmentOrganizationConnections match this filter */
+  organizationConnection_ALL?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+  /** Return Departments where none of the related DepartmentOrganizationConnections match this filter */
+  organizationConnection_NONE?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+  /** Return Departments where one of the related DepartmentOrganizationConnections match this filter */
+  organizationConnection_SINGLE?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+  /** Return Departments where some of the related DepartmentOrganizationConnections match this filter */
+  organizationConnection_SOME?: InputMaybe<DepartmentOrganizationConnectionWhere>;
+  /** Return Departments where all of the related Organizations match this filter */
+  organization_ALL?: InputMaybe<OrganizationWhere>;
+  /** Return Departments where none of the related Organizations match this filter */
+  organization_NONE?: InputMaybe<OrganizationWhere>;
+  /** Return Departments where one of the related Organizations match this filter */
+  organization_SINGLE?: InputMaybe<OrganizationWhere>;
+  /** Return Departments where some of the related Organizations match this filter */
+  organization_SOME?: InputMaybe<OrganizationWhere>;
+  worksAggregate?: InputMaybe<DepartmentWorksAggregateInput>;
+  /** Return Departments where all of the related DepartmentWorksConnections match this filter */
+  worksConnection_ALL?: InputMaybe<DepartmentWorksConnectionWhere>;
+  /** Return Departments where none of the related DepartmentWorksConnections match this filter */
+  worksConnection_NONE?: InputMaybe<DepartmentWorksConnectionWhere>;
+  /** Return Departments where one of the related DepartmentWorksConnections match this filter */
+  worksConnection_SINGLE?: InputMaybe<DepartmentWorksConnectionWhere>;
+  /** Return Departments where some of the related DepartmentWorksConnections match this filter */
+  worksConnection_SOME?: InputMaybe<DepartmentWorksConnectionWhere>;
+  /** Return Departments where all of the related People match this filter */
+  works_ALL?: InputMaybe<PersonWhere>;
+  /** Return Departments where none of the related People match this filter */
+  works_NONE?: InputMaybe<PersonWhere>;
+  /** Return Departments where one of the related People match this filter */
+  works_SINGLE?: InputMaybe<PersonWhere>;
+  /** Return Departments where some of the related People match this filter */
+  works_SOME?: InputMaybe<PersonWhere>;
+};
+
+export type DepartmentWorksAggregateInput = {
+  AND?: InputMaybe<Array<DepartmentWorksAggregateInput>>;
+  NOT?: InputMaybe<DepartmentWorksAggregateInput>;
+  OR?: InputMaybe<Array<DepartmentWorksAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<DepartmentWorksNodeAggregationWhereInput>;
+};
+
+export type DepartmentWorksConnectFieldInput = {
+  connect?: InputMaybe<Array<PersonConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<PersonConnectWhere>;
+};
+
+export type DepartmentWorksConnectOrCreateFieldInput = {
+  onCreate: DepartmentWorksConnectOrCreateFieldInputOnCreate;
+  where: PersonConnectOrCreateWhere;
+};
+
+export type DepartmentWorksConnectOrCreateFieldInputOnCreate = {
+  node: PersonOnCreateInput;
+};
+
+export type DepartmentWorksConnection = {
+  __typename?: 'DepartmentWorksConnection';
+  edges: Array<DepartmentWorksRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type DepartmentWorksConnectionSort = {
+  node?: InputMaybe<PersonSort>;
+};
+
+export type DepartmentWorksConnectionWhere = {
+  AND?: InputMaybe<Array<DepartmentWorksConnectionWhere>>;
+  NOT?: InputMaybe<DepartmentWorksConnectionWhere>;
+  OR?: InputMaybe<Array<DepartmentWorksConnectionWhere>>;
+  node?: InputMaybe<PersonWhere>;
+};
+
+export type DepartmentWorksCreateFieldInput = {
+  node: PersonCreateInput;
+};
+
+export type DepartmentWorksDeleteFieldInput = {
+  delete?: InputMaybe<PersonDeleteInput>;
+  where?: InputMaybe<DepartmentWorksConnectionWhere>;
+};
+
+export type DepartmentWorksDisconnectFieldInput = {
+  disconnect?: InputMaybe<PersonDisconnectInput>;
+  where?: InputMaybe<DepartmentWorksConnectionWhere>;
+};
+
+export type DepartmentWorksFieldInput = {
+  connect?: InputMaybe<Array<DepartmentWorksConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<DepartmentWorksConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<DepartmentWorksCreateFieldInput>>;
+};
+
+export type DepartmentWorksNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<DepartmentWorksNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<DepartmentWorksNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<DepartmentWorksNodeAggregationWhereInput>>;
+  assetTag_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  cost_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  firstName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  firstName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  firstName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  firstName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  firstName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  firstName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  firstName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  firstName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  firstName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  firstName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  firstName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  firstName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  firstName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  firstName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  firstName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  lastName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  lastName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  lastName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  lastName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  lastName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  lastName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  lastName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  lastName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  lastName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  lastName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  lastName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  lastName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  lastName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  lastName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  lastName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  midddleName_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  midddleName_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  midddleName_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  midddleName_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  midddleName_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  midddleName_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type DepartmentWorksRelationship = {
+  __typename?: 'DepartmentWorksRelationship';
+  cursor: Scalars['String']['output'];
+  node: Person;
+};
+
+export type DepartmentWorksUpdateConnectionInput = {
+  node?: InputMaybe<PersonUpdateInput>;
+};
+
+export type DepartmentWorksUpdateFieldInput = {
+  connect?: InputMaybe<Array<DepartmentWorksConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<DepartmentWorksConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<DepartmentWorksCreateFieldInput>>;
+  delete?: InputMaybe<Array<DepartmentWorksDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<DepartmentWorksDisconnectFieldInput>>;
+  update?: InputMaybe<DepartmentWorksUpdateConnectionInput>;
+  where?: InputMaybe<DepartmentWorksConnectionWhere>;
+};
+
+export type DepartmentsConnection = {
+  __typename?: 'DepartmentsConnection';
+  edges: Array<DepartmentEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
 };
 
 export type Device = {
@@ -4382,35 +5389,44 @@ export type MemoryWhere = {
 export type Mutation = {
   __typename?: 'Mutation';
   createApplications: CreateApplicationsMutationResponse;
+  createCompanies: CreateCompaniesMutationResponse;
   createComputers: CreateComputersMutationResponse;
   createCpus: CreateCpusMutationResponse;
   createDatabaseInstances: CreateDatabaseInstancesMutationResponse;
+  createDepartments: CreateDepartmentsMutationResponse;
   createIps: CreateIpsMutationResponse;
   createLocations: CreateLocationsMutationResponse;
   createMemories: CreateMemoriesMutationResponse;
   createOperatingSystems: CreateOperatingSystemsMutationResponse;
+  createOrganizations: CreateOrganizationsMutationResponse;
   createPeople: CreatePeopleMutationResponse;
   createProducts: CreateProductsMutationResponse;
   createStorages: CreateStoragesMutationResponse;
   deleteApplications: DeleteInfo;
+  deleteCompanies: DeleteInfo;
   deleteComputers: DeleteInfo;
   deleteCpus: DeleteInfo;
   deleteDatabaseInstances: DeleteInfo;
+  deleteDepartments: DeleteInfo;
   deleteIps: DeleteInfo;
   deleteLocations: DeleteInfo;
   deleteMemories: DeleteInfo;
   deleteOperatingSystems: DeleteInfo;
+  deleteOrganizations: DeleteInfo;
   deletePeople: DeleteInfo;
   deleteProducts: DeleteInfo;
   deleteStorages: DeleteInfo;
   updateApplications: UpdateApplicationsMutationResponse;
+  updateCompanies: UpdateCompaniesMutationResponse;
   updateComputers: UpdateComputersMutationResponse;
   updateCpus: UpdateCpusMutationResponse;
   updateDatabaseInstances: UpdateDatabaseInstancesMutationResponse;
+  updateDepartments: UpdateDepartmentsMutationResponse;
   updateIps: UpdateIpsMutationResponse;
   updateLocations: UpdateLocationsMutationResponse;
   updateMemories: UpdateMemoriesMutationResponse;
   updateOperatingSystems: UpdateOperatingSystemsMutationResponse;
+  updateOrganizations: UpdateOrganizationsMutationResponse;
   updatePeople: UpdatePeopleMutationResponse;
   updateProducts: UpdateProductsMutationResponse;
   updateStorages: UpdateStoragesMutationResponse;
@@ -4419,6 +5435,11 @@ export type Mutation = {
 
 export type MutationCreateApplicationsArgs = {
   input: Array<ApplicationCreateInput>;
+};
+
+
+export type MutationCreateCompaniesArgs = {
+  input: Array<CompanyCreateInput>;
 };
 
 
@@ -4434,6 +5455,11 @@ export type MutationCreateCpusArgs = {
 
 export type MutationCreateDatabaseInstancesArgs = {
   input: Array<DatabaseInstanceCreateInput>;
+};
+
+
+export type MutationCreateDepartmentsArgs = {
+  input: Array<DepartmentCreateInput>;
 };
 
 
@@ -4454,6 +5480,11 @@ export type MutationCreateMemoriesArgs = {
 
 export type MutationCreateOperatingSystemsArgs = {
   input: Array<OperatingSystemCreateInput>;
+};
+
+
+export type MutationCreateOrganizationsArgs = {
+  input: Array<OrganizationCreateInput>;
 };
 
 
@@ -4478,6 +5509,12 @@ export type MutationDeleteApplicationsArgs = {
 };
 
 
+export type MutationDeleteCompaniesArgs = {
+  delete?: InputMaybe<CompanyDeleteInput>;
+  where?: InputMaybe<CompanyWhere>;
+};
+
+
 export type MutationDeleteComputersArgs = {
   delete?: InputMaybe<ComputerDeleteInput>;
   where?: InputMaybe<ComputerWhere>;
@@ -4493,6 +5530,12 @@ export type MutationDeleteCpusArgs = {
 export type MutationDeleteDatabaseInstancesArgs = {
   delete?: InputMaybe<DatabaseInstanceDeleteInput>;
   where?: InputMaybe<DatabaseInstanceWhere>;
+};
+
+
+export type MutationDeleteDepartmentsArgs = {
+  delete?: InputMaybe<DepartmentDeleteInput>;
+  where?: InputMaybe<DepartmentWhere>;
 };
 
 
@@ -4517,6 +5560,12 @@ export type MutationDeleteMemoriesArgs = {
 export type MutationDeleteOperatingSystemsArgs = {
   delete?: InputMaybe<OperatingSystemDeleteInput>;
   where?: InputMaybe<OperatingSystemWhere>;
+};
+
+
+export type MutationDeleteOrganizationsArgs = {
+  delete?: InputMaybe<OrganizationDeleteInput>;
+  where?: InputMaybe<OrganizationWhere>;
 };
 
 
@@ -4546,6 +5595,17 @@ export type MutationUpdateApplicationsArgs = {
   disconnect?: InputMaybe<ApplicationDisconnectInput>;
   update?: InputMaybe<ApplicationUpdateInput>;
   where?: InputMaybe<ApplicationWhere>;
+};
+
+
+export type MutationUpdateCompaniesArgs = {
+  connect?: InputMaybe<CompanyConnectInput>;
+  connectOrCreate?: InputMaybe<CompanyConnectOrCreateInput>;
+  create?: InputMaybe<CompanyRelationInput>;
+  delete?: InputMaybe<CompanyDeleteInput>;
+  disconnect?: InputMaybe<CompanyDisconnectInput>;
+  update?: InputMaybe<CompanyUpdateInput>;
+  where?: InputMaybe<CompanyWhere>;
 };
 
 
@@ -4579,6 +5639,17 @@ export type MutationUpdateDatabaseInstancesArgs = {
   disconnect?: InputMaybe<DatabaseInstanceDisconnectInput>;
   update?: InputMaybe<DatabaseInstanceUpdateInput>;
   where?: InputMaybe<DatabaseInstanceWhere>;
+};
+
+
+export type MutationUpdateDepartmentsArgs = {
+  connect?: InputMaybe<DepartmentConnectInput>;
+  connectOrCreate?: InputMaybe<DepartmentConnectOrCreateInput>;
+  create?: InputMaybe<DepartmentRelationInput>;
+  delete?: InputMaybe<DepartmentDeleteInput>;
+  disconnect?: InputMaybe<DepartmentDisconnectInput>;
+  update?: InputMaybe<DepartmentUpdateInput>;
+  where?: InputMaybe<DepartmentWhere>;
 };
 
 
@@ -4621,6 +5692,17 @@ export type MutationUpdateOperatingSystemsArgs = {
   disconnect?: InputMaybe<OperatingSystemDisconnectInput>;
   update?: InputMaybe<OperatingSystemUpdateInput>;
   where?: InputMaybe<OperatingSystemWhere>;
+};
+
+
+export type MutationUpdateOrganizationsArgs = {
+  connect?: InputMaybe<OrganizationConnectInput>;
+  connectOrCreate?: InputMaybe<OrganizationConnectOrCreateInput>;
+  create?: InputMaybe<OrganizationRelationInput>;
+  delete?: InputMaybe<OrganizationDeleteInput>;
+  disconnect?: InputMaybe<OrganizationDisconnectInput>;
+  update?: InputMaybe<OrganizationUpdateInput>;
+  where?: InputMaybe<OrganizationWhere>;
 };
 
 
@@ -5028,6 +6110,602 @@ export type OperatingSystemsConnection = {
   totalCount: Scalars['Int']['output'];
 };
 
+export type Organization = CiRoot & {
+  __typename?: 'Organization';
+  assetTag?: Maybe<Scalars['String']['output']>;
+  company: Array<Company>;
+  companyAggregate?: Maybe<OrganizationCompanyCompanyAggregationSelection>;
+  companyConnection: OrganizationCompanyConnection;
+  cost?: Maybe<Scalars['Float']['output']>;
+  departments: Array<Department>;
+  departmentsAggregate?: Maybe<OrganizationDepartmentDepartmentsAggregationSelection>;
+  departmentsConnection: OrganizationDepartmentsConnection;
+  description?: Maybe<Scalars['String']['output']>;
+  instanceId: Scalars['ID']['output'];
+  isMarkedDelete?: Maybe<Scalars['Boolean']['output']>;
+  name: Scalars['String']['output'];
+};
+
+
+export type OrganizationCompanyArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<CompanyOptions>;
+  where?: InputMaybe<CompanyWhere>;
+};
+
+
+export type OrganizationCompanyAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<CompanyWhere>;
+};
+
+
+export type OrganizationCompanyConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<OrganizationCompanyConnectionSort>>;
+  where?: InputMaybe<OrganizationCompanyConnectionWhere>;
+};
+
+
+export type OrganizationDepartmentsArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<DepartmentOptions>;
+  where?: InputMaybe<DepartmentWhere>;
+};
+
+
+export type OrganizationDepartmentsAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<DepartmentWhere>;
+};
+
+
+export type OrganizationDepartmentsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<OrganizationDepartmentsConnectionSort>>;
+  where?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+};
+
+export type OrganizationAggregateSelection = {
+  __typename?: 'OrganizationAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  count: Scalars['Int']['output'];
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
+export type OrganizationCompanyAggregateInput = {
+  AND?: InputMaybe<Array<OrganizationCompanyAggregateInput>>;
+  NOT?: InputMaybe<OrganizationCompanyAggregateInput>;
+  OR?: InputMaybe<Array<OrganizationCompanyAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<OrganizationCompanyNodeAggregationWhereInput>;
+};
+
+export type OrganizationCompanyCompanyAggregationSelection = {
+  __typename?: 'OrganizationCompanyCompanyAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<OrganizationCompanyCompanyNodeAggregateSelection>;
+};
+
+export type OrganizationCompanyCompanyNodeAggregateSelection = {
+  __typename?: 'OrganizationCompanyCompanyNodeAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+  type: StringAggregateSelection;
+};
+
+export type OrganizationCompanyConnectFieldInput = {
+  connect?: InputMaybe<Array<CompanyConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<CompanyConnectWhere>;
+};
+
+export type OrganizationCompanyConnectOrCreateFieldInput = {
+  onCreate: OrganizationCompanyConnectOrCreateFieldInputOnCreate;
+  where: CompanyConnectOrCreateWhere;
+};
+
+export type OrganizationCompanyConnectOrCreateFieldInputOnCreate = {
+  node: CompanyOnCreateInput;
+};
+
+export type OrganizationCompanyConnection = {
+  __typename?: 'OrganizationCompanyConnection';
+  edges: Array<OrganizationCompanyRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type OrganizationCompanyConnectionSort = {
+  node?: InputMaybe<CompanySort>;
+};
+
+export type OrganizationCompanyConnectionWhere = {
+  AND?: InputMaybe<Array<OrganizationCompanyConnectionWhere>>;
+  NOT?: InputMaybe<OrganizationCompanyConnectionWhere>;
+  OR?: InputMaybe<Array<OrganizationCompanyConnectionWhere>>;
+  node?: InputMaybe<CompanyWhere>;
+};
+
+export type OrganizationCompanyCreateFieldInput = {
+  node: CompanyCreateInput;
+};
+
+export type OrganizationCompanyDeleteFieldInput = {
+  delete?: InputMaybe<CompanyDeleteInput>;
+  where?: InputMaybe<OrganizationCompanyConnectionWhere>;
+};
+
+export type OrganizationCompanyDisconnectFieldInput = {
+  disconnect?: InputMaybe<CompanyDisconnectInput>;
+  where?: InputMaybe<OrganizationCompanyConnectionWhere>;
+};
+
+export type OrganizationCompanyFieldInput = {
+  connect?: InputMaybe<Array<OrganizationCompanyConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<OrganizationCompanyConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<OrganizationCompanyCreateFieldInput>>;
+};
+
+export type OrganizationCompanyNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<OrganizationCompanyNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<OrganizationCompanyNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<OrganizationCompanyNodeAggregationWhereInput>>;
+  assetTag_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  cost_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  type_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  type_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  type_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  type_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  type_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  type_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  type_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  type_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  type_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  type_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  type_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  type_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  type_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  type_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  type_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type OrganizationCompanyRelationship = {
+  __typename?: 'OrganizationCompanyRelationship';
+  cursor: Scalars['String']['output'];
+  node: Company;
+};
+
+export type OrganizationCompanyUpdateConnectionInput = {
+  node?: InputMaybe<CompanyUpdateInput>;
+};
+
+export type OrganizationCompanyUpdateFieldInput = {
+  connect?: InputMaybe<Array<OrganizationCompanyConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<OrganizationCompanyConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<OrganizationCompanyCreateFieldInput>>;
+  delete?: InputMaybe<Array<OrganizationCompanyDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<OrganizationCompanyDisconnectFieldInput>>;
+  update?: InputMaybe<OrganizationCompanyUpdateConnectionInput>;
+  where?: InputMaybe<OrganizationCompanyConnectionWhere>;
+};
+
+export type OrganizationConnectInput = {
+  company?: InputMaybe<Array<OrganizationCompanyConnectFieldInput>>;
+  departments?: InputMaybe<Array<OrganizationDepartmentsConnectFieldInput>>;
+};
+
+export type OrganizationConnectOrCreateInput = {
+  company?: InputMaybe<Array<OrganizationCompanyConnectOrCreateFieldInput>>;
+  departments?: InputMaybe<Array<OrganizationDepartmentsConnectOrCreateFieldInput>>;
+};
+
+export type OrganizationConnectOrCreateWhere = {
+  node: OrganizationUniqueWhere;
+};
+
+export type OrganizationConnectWhere = {
+  node: OrganizationWhere;
+};
+
+export type OrganizationCreateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  company?: InputMaybe<OrganizationCompanyFieldInput>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  departments?: InputMaybe<OrganizationDepartmentsFieldInput>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+};
+
+export type OrganizationDeleteInput = {
+  company?: InputMaybe<Array<OrganizationCompanyDeleteFieldInput>>;
+  departments?: InputMaybe<Array<OrganizationDepartmentsDeleteFieldInput>>;
+};
+
+export type OrganizationDepartmentDepartmentsAggregationSelection = {
+  __typename?: 'OrganizationDepartmentDepartmentsAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<OrganizationDepartmentDepartmentsNodeAggregateSelection>;
+};
+
+export type OrganizationDepartmentDepartmentsNodeAggregateSelection = {
+  __typename?: 'OrganizationDepartmentDepartmentsNodeAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
+export type OrganizationDepartmentsAggregateInput = {
+  AND?: InputMaybe<Array<OrganizationDepartmentsAggregateInput>>;
+  NOT?: InputMaybe<OrganizationDepartmentsAggregateInput>;
+  OR?: InputMaybe<Array<OrganizationDepartmentsAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<OrganizationDepartmentsNodeAggregationWhereInput>;
+};
+
+export type OrganizationDepartmentsConnectFieldInput = {
+  connect?: InputMaybe<Array<DepartmentConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<DepartmentConnectWhere>;
+};
+
+export type OrganizationDepartmentsConnectOrCreateFieldInput = {
+  onCreate: OrganizationDepartmentsConnectOrCreateFieldInputOnCreate;
+  where: DepartmentConnectOrCreateWhere;
+};
+
+export type OrganizationDepartmentsConnectOrCreateFieldInputOnCreate = {
+  node: DepartmentOnCreateInput;
+};
+
+export type OrganizationDepartmentsConnection = {
+  __typename?: 'OrganizationDepartmentsConnection';
+  edges: Array<OrganizationDepartmentsRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type OrganizationDepartmentsConnectionSort = {
+  node?: InputMaybe<DepartmentSort>;
+};
+
+export type OrganizationDepartmentsConnectionWhere = {
+  AND?: InputMaybe<Array<OrganizationDepartmentsConnectionWhere>>;
+  NOT?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+  OR?: InputMaybe<Array<OrganizationDepartmentsConnectionWhere>>;
+  node?: InputMaybe<DepartmentWhere>;
+};
+
+export type OrganizationDepartmentsCreateFieldInput = {
+  node: DepartmentCreateInput;
+};
+
+export type OrganizationDepartmentsDeleteFieldInput = {
+  delete?: InputMaybe<DepartmentDeleteInput>;
+  where?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+};
+
+export type OrganizationDepartmentsDisconnectFieldInput = {
+  disconnect?: InputMaybe<DepartmentDisconnectInput>;
+  where?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+};
+
+export type OrganizationDepartmentsFieldInput = {
+  connect?: InputMaybe<Array<OrganizationDepartmentsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<OrganizationDepartmentsConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<OrganizationDepartmentsCreateFieldInput>>;
+};
+
+export type OrganizationDepartmentsNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<OrganizationDepartmentsNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<OrganizationDepartmentsNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<OrganizationDepartmentsNodeAggregationWhereInput>>;
+  assetTag_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  cost_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type OrganizationDepartmentsRelationship = {
+  __typename?: 'OrganizationDepartmentsRelationship';
+  cursor: Scalars['String']['output'];
+  node: Department;
+};
+
+export type OrganizationDepartmentsUpdateConnectionInput = {
+  node?: InputMaybe<DepartmentUpdateInput>;
+};
+
+export type OrganizationDepartmentsUpdateFieldInput = {
+  connect?: InputMaybe<Array<OrganizationDepartmentsConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<OrganizationDepartmentsConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<OrganizationDepartmentsCreateFieldInput>>;
+  delete?: InputMaybe<Array<OrganizationDepartmentsDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<OrganizationDepartmentsDisconnectFieldInput>>;
+  update?: InputMaybe<OrganizationDepartmentsUpdateConnectionInput>;
+  where?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+};
+
+export type OrganizationDisconnectInput = {
+  company?: InputMaybe<Array<OrganizationCompanyDisconnectFieldInput>>;
+  departments?: InputMaybe<Array<OrganizationDepartmentsDisconnectFieldInput>>;
+};
+
+export type OrganizationEdge = {
+  __typename?: 'OrganizationEdge';
+  cursor: Scalars['String']['output'];
+  node: Organization;
+};
+
+export type OrganizationOnCreateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name: Scalars['String']['input'];
+};
+
+export type OrganizationOptions = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
+  /** Specify one or more OrganizationSort objects to sort Organizations by. The sorts will be applied in the order in which they are arranged in the array. */
+  sort?: InputMaybe<Array<OrganizationSort>>;
+};
+
+export type OrganizationRelationInput = {
+  company?: InputMaybe<Array<OrganizationCompanyCreateFieldInput>>;
+  departments?: InputMaybe<Array<OrganizationDepartmentsCreateFieldInput>>;
+};
+
+/** Fields to sort Organizations by. The order in which sorts are applied is not guaranteed when specifying many fields in one OrganizationSort object. */
+export type OrganizationSort = {
+  assetTag?: InputMaybe<SortDirection>;
+  cost?: InputMaybe<SortDirection>;
+  description?: InputMaybe<SortDirection>;
+  instanceId?: InputMaybe<SortDirection>;
+  isMarkedDelete?: InputMaybe<SortDirection>;
+  name?: InputMaybe<SortDirection>;
+};
+
+export type OrganizationUniqueWhere = {
+  instanceId?: InputMaybe<Scalars['ID']['input']>;
+};
+
+export type OrganizationUpdateInput = {
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  company?: InputMaybe<Array<OrganizationCompanyUpdateFieldInput>>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  cost_ADD?: InputMaybe<Scalars['Float']['input']>;
+  cost_DIVIDE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MULTIPLY?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUBTRACT?: InputMaybe<Scalars['Float']['input']>;
+  departments?: InputMaybe<Array<OrganizationDepartmentsUpdateFieldInput>>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrganizationWhere = {
+  AND?: InputMaybe<Array<OrganizationWhere>>;
+  NOT?: InputMaybe<OrganizationWhere>;
+  OR?: InputMaybe<Array<OrganizationWhere>>;
+  assetTag?: InputMaybe<Scalars['String']['input']>;
+  assetTag_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  assetTag_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  assetTag_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  assetTag_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  companyAggregate?: InputMaybe<OrganizationCompanyAggregateInput>;
+  /** Return Organizations where all of the related OrganizationCompanyConnections match this filter */
+  companyConnection_ALL?: InputMaybe<OrganizationCompanyConnectionWhere>;
+  /** Return Organizations where none of the related OrganizationCompanyConnections match this filter */
+  companyConnection_NONE?: InputMaybe<OrganizationCompanyConnectionWhere>;
+  /** Return Organizations where one of the related OrganizationCompanyConnections match this filter */
+  companyConnection_SINGLE?: InputMaybe<OrganizationCompanyConnectionWhere>;
+  /** Return Organizations where some of the related OrganizationCompanyConnections match this filter */
+  companyConnection_SOME?: InputMaybe<OrganizationCompanyConnectionWhere>;
+  /** Return Organizations where all of the related Companies match this filter */
+  company_ALL?: InputMaybe<CompanyWhere>;
+  /** Return Organizations where none of the related Companies match this filter */
+  company_NONE?: InputMaybe<CompanyWhere>;
+  /** Return Organizations where one of the related Companies match this filter */
+  company_SINGLE?: InputMaybe<CompanyWhere>;
+  /** Return Organizations where some of the related Companies match this filter */
+  company_SOME?: InputMaybe<CompanyWhere>;
+  cost?: InputMaybe<Scalars['Float']['input']>;
+  cost_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
+  cost_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_LTE?: InputMaybe<Scalars['Float']['input']>;
+  departmentsAggregate?: InputMaybe<OrganizationDepartmentsAggregateInput>;
+  /** Return Organizations where all of the related OrganizationDepartmentsConnections match this filter */
+  departmentsConnection_ALL?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+  /** Return Organizations where none of the related OrganizationDepartmentsConnections match this filter */
+  departmentsConnection_NONE?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+  /** Return Organizations where one of the related OrganizationDepartmentsConnections match this filter */
+  departmentsConnection_SINGLE?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+  /** Return Organizations where some of the related OrganizationDepartmentsConnections match this filter */
+  departmentsConnection_SOME?: InputMaybe<OrganizationDepartmentsConnectionWhere>;
+  /** Return Organizations where all of the related Departments match this filter */
+  departments_ALL?: InputMaybe<DepartmentWhere>;
+  /** Return Organizations where none of the related Departments match this filter */
+  departments_NONE?: InputMaybe<DepartmentWhere>;
+  /** Return Organizations where one of the related Departments match this filter */
+  departments_SINGLE?: InputMaybe<DepartmentWhere>;
+  /** Return Organizations where some of the related Departments match this filter */
+  departments_SOME?: InputMaybe<DepartmentWhere>;
+  description?: InputMaybe<Scalars['String']['input']>;
+  description_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  description_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  description_IN?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  description_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+  instanceId?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_CONTAINS?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_ENDS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  instanceId_IN?: InputMaybe<Array<Scalars['ID']['input']>>;
+  instanceId_STARTS_WITH?: InputMaybe<Scalars['ID']['input']>;
+  isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  name_CONTAINS?: InputMaybe<Scalars['String']['input']>;
+  name_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
+  name_IN?: InputMaybe<Array<Scalars['String']['input']>>;
+  name_STARTS_WITH?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type OrganizationsConnection = {
+  __typename?: 'OrganizationsConnection';
+  edges: Array<OrganizationEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
 /** Pagination information (Relay) */
 export type PageInfo = {
   __typename?: 'PageInfo';
@@ -5051,6 +6729,9 @@ export type Person = CiRoot & {
   applicationOwnerConnection: PersonApplicationOwnerConnection;
   assetTag?: Maybe<Scalars['String']['output']>;
   cost?: Maybe<Scalars['Float']['output']>;
+  department: Array<Department>;
+  departmentAggregate?: Maybe<PersonDepartmentDepartmentAggregationSelection>;
+  departmentConnection: PersonDepartmentConnection;
   description?: Maybe<Scalars['String']['output']>;
   firstName?: Maybe<Scalars['String']['output']>;
   instanceId: Scalars['ID']['output'];
@@ -5079,6 +6760,28 @@ export type PersonApplicationOwnerConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<PersonApplicationOwnerConnectionSort>>;
   where?: InputMaybe<PersonApplicationOwnerConnectionWhere>;
+};
+
+
+export type PersonDepartmentArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  options?: InputMaybe<DepartmentOptions>;
+  where?: InputMaybe<DepartmentWhere>;
+};
+
+
+export type PersonDepartmentAggregateArgs = {
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  where?: InputMaybe<DepartmentWhere>;
+};
+
+
+export type PersonDepartmentConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  directed?: InputMaybe<Scalars['Boolean']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<PersonDepartmentConnectionSort>>;
+  where?: InputMaybe<PersonDepartmentConnectionWhere>;
 };
 
 export type PersonAggregateSelection = {
@@ -5315,10 +7018,12 @@ export type PersonApplicationOwnerUpdateFieldInput = {
 
 export type PersonConnectInput = {
   applicationOwner?: InputMaybe<Array<PersonApplicationOwnerConnectFieldInput>>;
+  department?: InputMaybe<Array<PersonDepartmentConnectFieldInput>>;
 };
 
 export type PersonConnectOrCreateInput = {
   applicationOwner?: InputMaybe<Array<PersonApplicationOwnerConnectOrCreateFieldInput>>;
+  department?: InputMaybe<Array<PersonDepartmentConnectOrCreateFieldInput>>;
 };
 
 export type PersonConnectOrCreateWhere = {
@@ -5333,6 +7038,7 @@ export type PersonCreateInput = {
   applicationOwner?: InputMaybe<PersonApplicationOwnerFieldInput>;
   assetTag?: InputMaybe<Scalars['String']['input']>;
   cost?: InputMaybe<Scalars['Float']['input']>;
+  department?: InputMaybe<PersonDepartmentFieldInput>;
   description?: InputMaybe<Scalars['String']['input']>;
   firstName?: InputMaybe<Scalars['String']['input']>;
   isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5342,10 +7048,184 @@ export type PersonCreateInput = {
 
 export type PersonDeleteInput = {
   applicationOwner?: InputMaybe<Array<PersonApplicationOwnerDeleteFieldInput>>;
+  department?: InputMaybe<Array<PersonDepartmentDeleteFieldInput>>;
+};
+
+export type PersonDepartmentAggregateInput = {
+  AND?: InputMaybe<Array<PersonDepartmentAggregateInput>>;
+  NOT?: InputMaybe<PersonDepartmentAggregateInput>;
+  OR?: InputMaybe<Array<PersonDepartmentAggregateInput>>;
+  count?: InputMaybe<Scalars['Int']['input']>;
+  count_GT?: InputMaybe<Scalars['Int']['input']>;
+  count_GTE?: InputMaybe<Scalars['Int']['input']>;
+  count_LT?: InputMaybe<Scalars['Int']['input']>;
+  count_LTE?: InputMaybe<Scalars['Int']['input']>;
+  node?: InputMaybe<PersonDepartmentNodeAggregationWhereInput>;
+};
+
+export type PersonDepartmentConnectFieldInput = {
+  connect?: InputMaybe<Array<DepartmentConnectInput>>;
+  /** Whether or not to overwrite any matching relationship with the new properties. */
+  overwrite?: Scalars['Boolean']['input'];
+  where?: InputMaybe<DepartmentConnectWhere>;
+};
+
+export type PersonDepartmentConnectOrCreateFieldInput = {
+  onCreate: PersonDepartmentConnectOrCreateFieldInputOnCreate;
+  where: DepartmentConnectOrCreateWhere;
+};
+
+export type PersonDepartmentConnectOrCreateFieldInputOnCreate = {
+  node: DepartmentOnCreateInput;
+};
+
+export type PersonDepartmentConnection = {
+  __typename?: 'PersonDepartmentConnection';
+  edges: Array<PersonDepartmentRelationship>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type PersonDepartmentConnectionSort = {
+  node?: InputMaybe<DepartmentSort>;
+};
+
+export type PersonDepartmentConnectionWhere = {
+  AND?: InputMaybe<Array<PersonDepartmentConnectionWhere>>;
+  NOT?: InputMaybe<PersonDepartmentConnectionWhere>;
+  OR?: InputMaybe<Array<PersonDepartmentConnectionWhere>>;
+  node?: InputMaybe<DepartmentWhere>;
+};
+
+export type PersonDepartmentCreateFieldInput = {
+  node: DepartmentCreateInput;
+};
+
+export type PersonDepartmentDeleteFieldInput = {
+  delete?: InputMaybe<DepartmentDeleteInput>;
+  where?: InputMaybe<PersonDepartmentConnectionWhere>;
+};
+
+export type PersonDepartmentDepartmentAggregationSelection = {
+  __typename?: 'PersonDepartmentDepartmentAggregationSelection';
+  count: Scalars['Int']['output'];
+  node?: Maybe<PersonDepartmentDepartmentNodeAggregateSelection>;
+};
+
+export type PersonDepartmentDepartmentNodeAggregateSelection = {
+  __typename?: 'PersonDepartmentDepartmentNodeAggregateSelection';
+  assetTag: StringAggregateSelection;
+  cost: FloatAggregateSelection;
+  description: StringAggregateSelection;
+  instanceId: IdAggregateSelection;
+  name: StringAggregateSelection;
+};
+
+export type PersonDepartmentDisconnectFieldInput = {
+  disconnect?: InputMaybe<DepartmentDisconnectInput>;
+  where?: InputMaybe<PersonDepartmentConnectionWhere>;
+};
+
+export type PersonDepartmentFieldInput = {
+  connect?: InputMaybe<Array<PersonDepartmentConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<PersonDepartmentConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<PersonDepartmentCreateFieldInput>>;
+};
+
+export type PersonDepartmentNodeAggregationWhereInput = {
+  AND?: InputMaybe<Array<PersonDepartmentNodeAggregationWhereInput>>;
+  NOT?: InputMaybe<PersonDepartmentNodeAggregationWhereInput>;
+  OR?: InputMaybe<Array<PersonDepartmentNodeAggregationWhereInput>>;
+  assetTag_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  assetTag_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  assetTag_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  cost_AVERAGE_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_AVERAGE_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MAX_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_MIN_LTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_GTE?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LT?: InputMaybe<Scalars['Float']['input']>;
+  cost_SUM_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  description_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  description_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  description_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_AVERAGE_LENGTH_EQUAL?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_GTE?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LT?: InputMaybe<Scalars['Float']['input']>;
+  name_AVERAGE_LENGTH_LTE?: InputMaybe<Scalars['Float']['input']>;
+  name_LONGEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_LONGEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_EQUAL?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_GTE?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LT?: InputMaybe<Scalars['Int']['input']>;
+  name_SHORTEST_LENGTH_LTE?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type PersonDepartmentRelationship = {
+  __typename?: 'PersonDepartmentRelationship';
+  cursor: Scalars['String']['output'];
+  node: Department;
+};
+
+export type PersonDepartmentUpdateConnectionInput = {
+  node?: InputMaybe<DepartmentUpdateInput>;
+};
+
+export type PersonDepartmentUpdateFieldInput = {
+  connect?: InputMaybe<Array<PersonDepartmentConnectFieldInput>>;
+  connectOrCreate?: InputMaybe<Array<PersonDepartmentConnectOrCreateFieldInput>>;
+  create?: InputMaybe<Array<PersonDepartmentCreateFieldInput>>;
+  delete?: InputMaybe<Array<PersonDepartmentDeleteFieldInput>>;
+  disconnect?: InputMaybe<Array<PersonDepartmentDisconnectFieldInput>>;
+  update?: InputMaybe<PersonDepartmentUpdateConnectionInput>;
+  where?: InputMaybe<PersonDepartmentConnectionWhere>;
 };
 
 export type PersonDisconnectInput = {
   applicationOwner?: InputMaybe<Array<PersonApplicationOwnerDisconnectFieldInput>>;
+  department?: InputMaybe<Array<PersonDepartmentDisconnectFieldInput>>;
 };
 
 export type PersonEdge = {
@@ -5373,6 +7253,7 @@ export type PersonOptions = {
 
 export type PersonRelationInput = {
   applicationOwner?: InputMaybe<Array<PersonApplicationOwnerCreateFieldInput>>;
+  department?: InputMaybe<Array<PersonDepartmentCreateFieldInput>>;
 };
 
 /** Fields to sort People by. The order in which sorts are applied is not guaranteed when specifying many fields in one PersonSort object. */
@@ -5399,6 +7280,7 @@ export type PersonUpdateInput = {
   cost_DIVIDE?: InputMaybe<Scalars['Float']['input']>;
   cost_MULTIPLY?: InputMaybe<Scalars['Float']['input']>;
   cost_SUBTRACT?: InputMaybe<Scalars['Float']['input']>;
+  department?: InputMaybe<Array<PersonDepartmentUpdateFieldInput>>;
   description?: InputMaybe<Scalars['String']['input']>;
   firstName?: InputMaybe<Scalars['String']['input']>;
   isMarkedDelete?: InputMaybe<Scalars['Boolean']['input']>;
@@ -5438,6 +7320,23 @@ export type PersonWhere = {
   cost_IN?: InputMaybe<Array<InputMaybe<Scalars['Float']['input']>>>;
   cost_LT?: InputMaybe<Scalars['Float']['input']>;
   cost_LTE?: InputMaybe<Scalars['Float']['input']>;
+  departmentAggregate?: InputMaybe<PersonDepartmentAggregateInput>;
+  /** Return People where all of the related PersonDepartmentConnections match this filter */
+  departmentConnection_ALL?: InputMaybe<PersonDepartmentConnectionWhere>;
+  /** Return People where none of the related PersonDepartmentConnections match this filter */
+  departmentConnection_NONE?: InputMaybe<PersonDepartmentConnectionWhere>;
+  /** Return People where one of the related PersonDepartmentConnections match this filter */
+  departmentConnection_SINGLE?: InputMaybe<PersonDepartmentConnectionWhere>;
+  /** Return People where some of the related PersonDepartmentConnections match this filter */
+  departmentConnection_SOME?: InputMaybe<PersonDepartmentConnectionWhere>;
+  /** Return People where all of the related Departments match this filter */
+  department_ALL?: InputMaybe<DepartmentWhere>;
+  /** Return People where none of the related Departments match this filter */
+  department_NONE?: InputMaybe<DepartmentWhere>;
+  /** Return People where one of the related Departments match this filter */
+  department_SINGLE?: InputMaybe<DepartmentWhere>;
+  /** Return People where some of the related Departments match this filter */
+  department_SOME?: InputMaybe<DepartmentWhere>;
   description?: InputMaybe<Scalars['String']['input']>;
   description_CONTAINS?: InputMaybe<Scalars['String']['input']>;
   description_ENDS_WITH?: InputMaybe<Scalars['String']['input']>;
@@ -6101,6 +8000,9 @@ export type Query = {
   ciRoots: Array<CiRoot>;
   ciRootsAggregate: CiRootAggregateSelection;
   ciRootsConnection: CiRootsConnection;
+  companies: Array<Company>;
+  companiesAggregate: CompanyAggregateSelection;
+  companiesConnection: CompaniesConnection;
   components: Array<Component>;
   componentsAggregate: ComponentAggregateSelection;
   componentsConnection: ComponentsConnection;
@@ -6113,6 +8015,9 @@ export type Query = {
   databaseInstances: Array<DatabaseInstance>;
   databaseInstancesAggregate: DatabaseInstanceAggregateSelection;
   databaseInstancesConnection: DatabaseInstancesConnection;
+  departments: Array<Department>;
+  departmentsAggregate: DepartmentAggregateSelection;
+  departmentsConnection: DepartmentsConnection;
   devices: Array<Device>;
   devicesAggregate: DeviceAggregateSelection;
   devicesConnection: DevicesConnection;
@@ -6128,6 +8033,9 @@ export type Query = {
   operatingSystems: Array<OperatingSystem>;
   operatingSystemsAggregate: OperatingSystemAggregateSelection;
   operatingSystemsConnection: OperatingSystemsConnection;
+  organizations: Array<Organization>;
+  organizationsAggregate: OrganizationAggregateSelection;
+  organizationsConnection: OrganizationsConnection;
   people: Array<Person>;
   peopleAggregate: PersonAggregateSelection;
   peopleConnection: PeopleConnection;
@@ -6178,6 +8086,25 @@ export type QueryCiRootsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<CiRootSort>>>;
   where?: InputMaybe<CiRootWhere>;
+};
+
+
+export type QueryCompaniesArgs = {
+  options?: InputMaybe<CompanyOptions>;
+  where?: InputMaybe<CompanyWhere>;
+};
+
+
+export type QueryCompaniesAggregateArgs = {
+  where?: InputMaybe<CompanyWhere>;
+};
+
+
+export type QueryCompaniesConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<CompanySort>>>;
+  where?: InputMaybe<CompanyWhere>;
 };
 
 
@@ -6254,6 +8181,25 @@ export type QueryDatabaseInstancesConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<DatabaseInstanceSort>>>;
   where?: InputMaybe<DatabaseInstanceWhere>;
+};
+
+
+export type QueryDepartmentsArgs = {
+  options?: InputMaybe<DepartmentOptions>;
+  where?: InputMaybe<DepartmentWhere>;
+};
+
+
+export type QueryDepartmentsAggregateArgs = {
+  where?: InputMaybe<DepartmentWhere>;
+};
+
+
+export type QueryDepartmentsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<DepartmentSort>>>;
+  where?: InputMaybe<DepartmentWhere>;
 };
 
 
@@ -6349,6 +8295,25 @@ export type QueryOperatingSystemsConnectionArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Array<InputMaybe<OperatingSystemSort>>>;
   where?: InputMaybe<OperatingSystemWhere>;
+};
+
+
+export type QueryOrganizationsArgs = {
+  options?: InputMaybe<OrganizationOptions>;
+  where?: InputMaybe<OrganizationWhere>;
+};
+
+
+export type QueryOrganizationsAggregateArgs = {
+  where?: InputMaybe<OrganizationWhere>;
+};
+
+
+export type QueryOrganizationsConnectionArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Array<InputMaybe<OrganizationSort>>>;
+  where?: InputMaybe<OrganizationWhere>;
 };
 
 
@@ -7053,6 +9018,12 @@ export type UpdateApplicationsMutationResponse = {
   info: UpdateInfo;
 };
 
+export type UpdateCompaniesMutationResponse = {
+  __typename?: 'UpdateCompaniesMutationResponse';
+  companies: Array<Company>;
+  info: UpdateInfo;
+};
+
 export type UpdateComputersMutationResponse = {
   __typename?: 'UpdateComputersMutationResponse';
   computers: Array<Computer>;
@@ -7068,6 +9039,12 @@ export type UpdateCpusMutationResponse = {
 export type UpdateDatabaseInstancesMutationResponse = {
   __typename?: 'UpdateDatabaseInstancesMutationResponse';
   databaseInstances: Array<DatabaseInstance>;
+  info: UpdateInfo;
+};
+
+export type UpdateDepartmentsMutationResponse = {
+  __typename?: 'UpdateDepartmentsMutationResponse';
+  departments: Array<Department>;
   info: UpdateInfo;
 };
 
@@ -7106,6 +9083,12 @@ export type UpdateOperatingSystemsMutationResponse = {
   operatingSystems: Array<OperatingSystem>;
 };
 
+export type UpdateOrganizationsMutationResponse = {
+  __typename?: 'UpdateOrganizationsMutationResponse';
+  info: UpdateInfo;
+  organizations: Array<Organization>;
+};
+
 export type UpdatePeopleMutationResponse = {
   __typename?: 'UpdatePeopleMutationResponse';
   info: UpdateInfo;
@@ -7124,10 +9107,50 @@ export type UpdateStoragesMutationResponse = {
   storages: Array<Storage>;
 };
 
+export type CreateCompanyMutationVariables = Exact<{
+  input: Array<CompanyCreateInput> | CompanyCreateInput;
+}>;
+
+
+export type CreateCompanyMutation = { __typename?: 'Mutation', createCompanies: { __typename?: 'CreateCompaniesMutationResponse', companies: Array<{ __typename?: 'Company', name: string, instanceId: string }> } };
+
+export type CreateOrganizationMutationVariables = Exact<{
+  input: Array<OrganizationCreateInput> | OrganizationCreateInput;
+}>;
+
+
+export type CreateOrganizationMutation = { __typename?: 'Mutation', createOrganizations: { __typename?: 'CreateOrganizationsMutationResponse', organizations: Array<{ __typename?: 'Organization', name: string, description?: string | null, company: Array<{ __typename?: 'Company', name: string }> }> } };
+
+export type CreateDepartmentMutationVariables = Exact<{
+  input: Array<DepartmentCreateInput> | DepartmentCreateInput;
+}>;
+
+
+export type CreateDepartmentMutation = { __typename?: 'Mutation', createDepartments: { __typename?: 'CreateDepartmentsMutationResponse', departments: Array<{ __typename?: 'Department', name: string, instanceId: string, description?: string | null, organization: Array<{ __typename?: 'Organization', instanceId: string, name: string }> }> } };
+
+export type CreatePersonMutationVariables = Exact<{
+  input: Array<PersonCreateInput> | PersonCreateInput;
+}>;
+
+
+export type CreatePersonMutation = { __typename?: 'Mutation', createPeople: { __typename?: 'CreatePeopleMutationResponse', people: Array<{ __typename?: 'Person', firstName?: string | null, lastName?: string | null, instanceId: string, department: Array<{ __typename?: 'Department', name: string, instanceId: string }> }> } };
+
 export type GetIPsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetIPsQuery = { __typename?: 'Query', ips: Array<{ __typename?: 'IP', instanceId: string, address: string, isMarkedDelete?: boolean | null, port?: number | null, connects: Array<{ __typename?: 'Computer', instanceId: string, hostName?: string | null, name: string, isMarkedDelete?: boolean | null, memory?: any | null }> }> };
+export type GetIPsQuery = { __typename?: 'Query', ips: Array<{ __typename?: 'IP', instanceId: string, address: string }> };
+
+export type GetAllCompanyIdsQueryVariables = Exact<{
+  where?: InputMaybe<CompanyWhere>;
+}>;
 
 
-export const GetIPsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"getIPs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ips"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"instanceId"}},{"kind":"Field","name":{"kind":"Name","value":"address"}},{"kind":"Field","name":{"kind":"Name","value":"connects"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"instanceId"}},{"kind":"Field","name":{"kind":"Name","value":"hostName"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"isMarkedDelete"}},{"kind":"Field","name":{"kind":"Name","value":"memory"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isMarkedDelete"}},{"kind":"Field","name":{"kind":"Name","value":"port"}}]}}]}}]} as unknown as DocumentNode<GetIPsQuery, GetIPsQueryVariables>;
+export type GetAllCompanyIdsQuery = { __typename?: 'Query', companies: Array<{ __typename?: 'Company', name: string, instanceId: string }> };
+
+
+export const CreateCompanyDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createCompany"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CompanyCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createCompanies"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"companies"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"instanceId"}}]}}]}}]}}]} as unknown as DocumentNode<CreateCompanyMutation, CreateCompanyMutationVariables>;
+export const CreateOrganizationDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createOrganization"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createOrganizations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"organizations"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"company"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateOrganizationMutation, CreateOrganizationMutationVariables>;
+export const CreateDepartmentDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createDepartment"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"DepartmentCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createDepartments"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"departments"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"instanceId"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"instanceId"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreateDepartmentMutation, CreateDepartmentMutationVariables>;
+export const CreatePersonDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"createPerson"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"PersonCreateInput"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createPeople"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"instanceId"}},{"kind":"Field","name":{"kind":"Name","value":"department"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"instanceId"}}]}}]}}]}}]}}]} as unknown as DocumentNode<CreatePersonMutation, CreatePersonMutationVariables>;
+export const GetIPsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetIPs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"ips"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"instanceId"}},{"kind":"Field","name":{"kind":"Name","value":"address"}}]}}]}}]} as unknown as DocumentNode<GetIPsQuery, GetIPsQueryVariables>;
+export const GetAllCompanyIdsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetAllCompanyIds"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CompanyWhere"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"companies"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"instanceId"}}]}}]}}]} as unknown as DocumentNode<GetAllCompanyIdsQuery, GetAllCompanyIdsQueryVariables>;
