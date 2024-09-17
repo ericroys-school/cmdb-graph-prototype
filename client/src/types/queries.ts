@@ -1,19 +1,19 @@
-import { gql } from '@apollo/client';
+import { gql } from '../graphTypes/gql';
 
-export const IPS = gql`
-  query getIPs {
+export const GET_IPS = gql(`
+  query GetIPs {
     ips {
       instanceId
       address
-      connects {
-        instanceId
-        hostName
-        name
-        isMarkedDelete
-        memory
-      }
-      isMarkedDelete
-      port
     }
   }
-`;
+`);
+
+export const GET_ALL_COMPANY_IDS = gql(`
+  query GetAllCompanyIds($where: CompanyWhere) {
+    companies(where: $where) {
+      name
+      instanceId
+    }
+  }
+`);
