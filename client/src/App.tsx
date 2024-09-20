@@ -1,15 +1,18 @@
 import { ApolloProvider } from '@apollo/client';
 import { client } from './config/apollo';
-// import { T } from './t'
-import React from 'react';
-// import { CreateCompany } from './components/createCompany';
-import { Company } from './components/company';
+import { Outlet } from 'react-router-dom';
+import { Header } from './components/header';
 
 const App: React.FC = () => {
   return (
-    <ApolloProvider client={client}>
-      <Company />
-    </ApolloProvider>
+    <div className='flex flex-col justify-center items-center'>
+      <Header />
+      <ApolloProvider client={client}>
+        <main className='mx-3 grow pb-10 mt-3'>
+          <Outlet />
+        </main>
+      </ApolloProvider>
+    </div>
   );
 };
 export default App;
