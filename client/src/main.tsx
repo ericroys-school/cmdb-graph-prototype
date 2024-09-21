@@ -7,9 +7,9 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store } from './store/store.js';
 import App from './App.tsx';
 import './index.css';
-// import { Company } from './components/company/company.tsx.old';
 import { CreateCompany } from './components/company/createCompany.tsx';
 import { CompanyList } from './components/company/companyList.tsx';
+import { CreateOrganization } from './components/organization/createOrganization.tsx';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: '/comcreate',
         element: <CreateCompany />,
+      },
+      {
+        path: '/orgcreate',
+        element: <CreateOrganization />,
       },
     ],
   },
