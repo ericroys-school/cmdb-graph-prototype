@@ -8,7 +8,7 @@ const App: React.FC = () => {
     <div className='flex flex-col justify-center items-center'>
       <Header />
       <ApolloProvider client={client}>
-        <main className='mx-3 grow pb-10 mt-3'>
+        <main className='flex justify-center mx-3 grow pb-10 mt-3 w-full'>
           <Outlet />
         </main>
       </ApolloProvider>
