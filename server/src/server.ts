@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 
 const dir = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = process.env.port || 4000;
+const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   schema: await neoSchema.getSchema(),
 });
