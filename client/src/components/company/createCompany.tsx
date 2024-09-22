@@ -33,7 +33,7 @@ export const CreateCompany = () => {
           },
         },
       });
-
+      console.log(`create returned data ${data}`);
       if (!error) {
         dispatch(fetchCompanyMenu());
         navigate('/');

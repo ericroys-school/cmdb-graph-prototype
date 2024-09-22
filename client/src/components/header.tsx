@@ -1,18 +1,5 @@
-import styled from 'styled-components';
 import { StyledNav } from '../lib/styledNav';
 import { links } from '../config/data/navOptions';
-
-const header = styled.div`
-  display: flex;
-  flex-direction: column-reverse;
-  width: 100%;
-  justify-content: space-between;
-  justify-items: center;
-  align-items: center;
-  background-color: var(--seconday);
-  border-width: 5px 0px;
-  box-shadow: -15px 5px 70px 5px black;
-`;
 
 export const Header = () => {
   return (

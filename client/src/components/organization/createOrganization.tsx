@@ -9,6 +9,7 @@ import { btnclass, errclass, inputclass, lblClass } from '../styling/styles';
 import { CompanyMenu } from '../company/companyMenu';
 import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
+import { OrganizationMenu } from './organizationMenu';
 
 export const CreateOrganization = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export const CreateOrganization = () => {
 
   const onSubmit = async (org: NewOrganization) => {
     try {
-      const { data } = await createOrganization({
+      await createOrganization({
         variables: {
           input: {
             name: org.name,
@@ -66,6 +67,7 @@ export const CreateOrganization = () => {
           {errors.name && (
             <p className={errclass}>{`${errors.companyId?.message}`}</p>
           )}
+
           <label htmlFor='organization' className={lblClass}>
             Organization
           </label>
