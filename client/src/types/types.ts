@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { newCompany, newOrg } from '../validators/validators.js';
+import { newCompany, newDept, newOrg } from '../validators/validators.js';
 
 //re-export new company
 export type NewCompany = z.infer<typeof newCompany>;
@@ -17,3 +17,4 @@ export interface IMenuPC extends IMenuItem {
 }
 
 export type NewOrganization = z.infer<typeof newOrg>;
+export type NewDepartment = z.infer<typeof newDept>;

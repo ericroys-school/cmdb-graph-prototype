@@ -10,6 +10,7 @@ import './index.css';
 import { CreateCompany } from './components/company/createCompany.tsx';
 import { CompanyList } from './components/company/companyList.tsx';
 import { CreateOrganization } from './components/organization/createOrganization.tsx';
+import { CreateDepartment } from './components/department/createDepartment.tsx';
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: '/orgcreate',
         element: <CreateOrganization />,
+      },
+      {
+        path: '/deptcreate',
+        element: <CreateDepartment />,
       },
     ],
   },

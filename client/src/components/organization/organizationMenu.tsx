@@ -52,7 +52,7 @@ export const OrganizationMenu = ({ className, register, companyId }: Props) => {
           defaultValue={'-select an option-'}></option>
       }
       {data.map((d) => (
-        <option key={d.key} value={d.value}>
+        <option key={d.key} value={d.key}>
           {d.value}
         </option>
       ))}
