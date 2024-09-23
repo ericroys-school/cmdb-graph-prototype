@@ -1,5 +1,4 @@
-import { btnclass, inputclass } from '../../components/styling/styles';
-import { BsSearch } from 'react-icons/bs';
+import { inputclass } from '../../components/styling/styles';
 import { CompanyList } from '../../components/company/companyList';
 import { useState } from 'react';
 
