@@ -14,14 +14,18 @@ import { UseFormRegister } from 'react-hook-form';
 export type Props = {
   className: string;
   register: UseFormRegister<any>;
+  //allow set value to parent form state
+  setValue?: React.Dispatch<React.SetStateAction<string>>;
 };
 
-export const CompanyMenu = ({ className, register }: Props) => {
+export const CompanyMenu = ({ className, register, setValue }: Props) => {
   const dispatch = useAppDispatch();
+  //get all company menu items from store
   const data: IMenuItem[] | null = useAppSelector(selectAll);
   const status = useSelector(selectStatus);
+
+  //populate store menu items first load
   useEffect(() => {
-    console.log('STATUS: ' + status);
     if (
       status === CompanyMenuStatus.IDLE ||
       status === CompanyMenuStatus.FAILED
@@ -29,10 +33,25 @@ export const CompanyMenu = ({ className, register }: Props) => {
       dispatch(fetchCompanyMenu());
   }, [status, dispatch]);
 
+  const onChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
+    // console.log('CHANGED: ' + event.currentTarget.value);
+    if (setValue) setValue(event.currentTarget.value);
+  };
+
   const content = (
-    <select id='company' className={className} {...register('companyId')}>
+    <select
+      id='company'
+      className={className}
+      {...register('companyId')}
+      onChange={onChange}>
+      {
+        <option
+          key={'_default'}
+          value={'-select an option'}
+          defaultValue={'-select an option-'}></option>
+      }
       {data.map((d) => (
-        <option key={d.key} value={d.value}>
+        <option key={d.key} value={d.key}>
           {d.value}
         </option>
       ))}
