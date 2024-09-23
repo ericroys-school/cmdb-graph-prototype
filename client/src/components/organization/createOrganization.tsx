@@ -46,7 +46,7 @@ export const CreateOrganization = () => {
         },
       });
       if (!error) {
-        dispatch(fetchOrgMenu);
+        dispatch(fetchOrgMenu());
         navigate('/');
       } else console.log(error);
     } catch (err) {
