@@ -9,7 +9,7 @@ import { btnclass, errclass, inputclass, lblClass } from '../styling/styles';
 import { CompanyMenu } from '../company/companyMenu';
 import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 export const CreateOrganization = () => {
   const navigate = useNavigate();
