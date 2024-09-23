@@ -3,12 +3,20 @@ import { GET_ALL_COMPANY_WITH_OPTIONS } from '../../types/queries';
 import { GetAllCompanyWithOptionsQuery } from '../../graphTypes/graphql';
 import { CompanyListItem } from './companyListItem';
 
-export const CompanyList = () => {
+export type Props = {
+  search?: string | undefined | null;
+};
+export const CompanyList = ({ search }: Props) => {
+  if (!search) return <></>;
+  let name_CONTAINS = search;
   const { loading, data, error } = useQuery<GetAllCompanyWithOptionsQuery>(
     GET_ALL_COMPANY_WITH_OPTIONS,
     {
       variables: {
-        where: { isMarkedDelete: false },
+        where: {
+          isMarkedDelete: false,
+          ...(name_CONTAINS && { name_CONTAINS }),
+        },
         options: { sort: [{ name: 'ASC' }] },
       },
     }
@@ -17,8 +25,10 @@ export const CompanyList = () => {
   const errMsg = <div>{JSON.stringify(error)}</div>;
   const content = (
     <div className='flex items-center w-full justify-center'>
-      <div className='w-1/2 flex flex-row flex-wrap justify-between'>
-        {data?.companies.map((c) => <CompanyListItem data={c} />)}
+      <div className='w-1/2 flex flex-row flex-wrap justify-around'>
+        {data?.companies.map((c) => (
+          <CompanyListItem key={c.instanceId} data={c} />
+        ))}
       </div>
     </div>
   );

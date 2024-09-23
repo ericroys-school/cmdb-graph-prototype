@@ -11,6 +11,7 @@ import { CreateCompany } from './components/company/createCompany.tsx';
 import { CompanyList } from './components/company/companyList.tsx';
 import { CreateOrganization } from './components/organization/createOrganization.tsx';
 import { CreateDepartment } from './components/department/createDepartment.tsx';
+import { CompanyPage } from './pages/company/index.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <CompanyList />,
+        element: <CompanyPage />,
       },
       {
         path: '/comcreate',
