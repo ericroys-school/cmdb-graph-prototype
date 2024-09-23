@@ -60,6 +60,7 @@ export const fetchCompanyMenu = createAsyncThunk(
     try {
       const { data, error } = await client.query({
         query: GET_ALL_COMPANY_IDS,
+        // fetchPolicy: 'network-only',
         variables: { where: { isMarkedDelete: false } },
       });
       if (error) {
