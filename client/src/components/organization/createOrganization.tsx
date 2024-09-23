@@ -9,10 +9,13 @@ import { btnclass, errclass, inputclass, lblClass } from '../styling/styles';
 import { CompanyMenu } from '../company/companyMenu';
 import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
+import { useAppDispatch } from '../../store/storeHooks';
+import { fetchOrgMenu } from '../../reducers/organization/organization';
 // import { useState } from 'react';
 
 export const CreateOrganization = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const {
     register,
@@ -42,7 +45,10 @@ export const CreateOrganization = () => {
           },
         },
       });
-      !error ? navigate('/') : console.log(error);
+      if (!error) {
+        dispatch(fetchOrgMenu);
+        navigate('/');
+      } else console.log(error);
     } catch (err) {
       console.log(err);
     }
