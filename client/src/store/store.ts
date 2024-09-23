@@ -10,6 +10,7 @@ import {
   REHYDRATE,
   persistReducer,
 } from 'redux-persist';
+import { orgMenuReducer } from '../reducers/organization/organization';
 
 const persistConfig = {
   key: 'root',
@@ -19,6 +20,7 @@ const persistConfig = {
 
 const rootReducers = combineReducers({
   companyMenu: companyMenuReducer.reducer,
+  orgMenu: orgMenuReducer.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducers);

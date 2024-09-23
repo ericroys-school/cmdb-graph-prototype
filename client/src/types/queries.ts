@@ -18,6 +18,18 @@ export const GET_ALL_COMPANY_IDS = gql(`
   }
 `);
 
+export const GET_COMPANYORG_IDS = gql(`
+query GetOrgsForCompany($where: OrganizationWhere){
+  organizations(where: $where){
+    name
+    instanceId
+    company{
+      instanceId
+    }
+  }
+}
+`);
+
 export const GET_ALL_COMPANY_WITH_OPTIONS = gql(`
 query GetAllCompanyWithOptions($where: CompanyWhere, $options: CompanyOptions){
   companies(where: $where, options: $options) {

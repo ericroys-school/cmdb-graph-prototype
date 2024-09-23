@@ -19,6 +19,7 @@ const documents = {
     "\n  mutation createPerson($input: [PersonCreateInput!]!) {\n    createPeople(input: $input) {\n      people {\n        firstName\n        lastName\n        instanceId\n        department {\n          name\n          instanceId\n        }\n      }\n    }\n  }\n": types.CreatePersonDocument,
     "\n  query GetIPs {\n    ips {\n      instanceId\n      address\n    }\n  }\n": types.GetIPsDocument,
     "\n  query GetAllCompanyIds($where: CompanyWhere) {\n    companies(where: $where) {\n      name\n      instanceId\n    }\n  }\n": types.GetAllCompanyIdsDocument,
+    "\nquery GetOrgsForCompany($where: OrganizationWhere){\n  organizations(where: $where){\n    name\n    instanceId\n    company{\n      instanceId\n    }\n  }\n}\n": types.GetOrgsForCompanyDocument,
     "\nquery GetAllCompanyWithOptions($where: CompanyWhere, $options: CompanyOptions){\n  companies(where: $where, options: $options) {\n    name\n    instanceId\n    assetTag\n    cost\n    description\n    isMarkedDelete\n    type\n  }\n}\n": types.GetAllCompanyWithOptionsDocument,
     " \nquery GetCompanies($where: CompanyWhere, $options: CompanyOptions){\n  companies(where: $where, options: $options) {\n    name\n    instanceId\n    assetTag\n    cost\n    description\n    isMarkedDelete\n    type\n  }\n}\n": types.GetCompaniesDocument,
 };
@@ -61,6 +62,10 @@ export function gql(source: "\n  query GetIPs {\n    ips {\n      instanceId\n  
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query GetAllCompanyIds($where: CompanyWhere) {\n    companies(where: $where) {\n      name\n      instanceId\n    }\n  }\n"): (typeof documents)["\n  query GetAllCompanyIds($where: CompanyWhere) {\n    companies(where: $where) {\n      name\n      instanceId\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nquery GetOrgsForCompany($where: OrganizationWhere){\n  organizations(where: $where){\n    name\n    instanceId\n    company{\n      instanceId\n    }\n  }\n}\n"): (typeof documents)["\nquery GetOrgsForCompany($where: OrganizationWhere){\n  organizations(where: $where){\n    name\n    instanceId\n    company{\n      instanceId\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

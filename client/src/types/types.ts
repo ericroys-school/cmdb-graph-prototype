@@ -10,4 +10,10 @@ export interface IMenuItem {
   value: string;
 }
 
+//a parent child menu definition
+//i.e.  {parent: 'acme_companyId', key: 'name', value: 'acme co department A'}
+export interface IMenuPC extends IMenuItem {
+  parent: string | undefined | null;
+}
+
 export type NewOrganization = z.infer<typeof newOrg>;
