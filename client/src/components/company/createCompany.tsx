@@ -24,7 +24,7 @@ export const CreateCompany = () => {
 
   const onSubmit = async (com: NewCompany) => {
     try {
-      const { data } = await createCompany({
+      await createCompany({
         variables: {
           input: {
             name: com.name,
@@ -33,7 +33,7 @@ export const CreateCompany = () => {
           },
         },
       });
-      console.log(`create returned data ${data}`);
+      // console.log(`create returned data ${data}`);
       if (!error) {
         dispatch(fetchCompanyMenu());
         navigate('/');
