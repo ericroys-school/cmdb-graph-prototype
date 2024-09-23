@@ -9,7 +9,6 @@ import { btnclass, errclass, inputclass, lblClass } from '../styling/styles';
 import { CompanyMenu } from '../company/companyMenu';
 import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
-import { OrganizationMenu } from './organizationMenu';
 import { useState } from 'react';
 
 export const CreateOrganization = () => {
@@ -18,11 +17,11 @@ export const CreateOrganization = () => {
   const {
     register,
     handleSubmit,
-    getValues,
+    // getValues,
     formState: { errors, isSubmitting },
   } = useForm<NewOrganization>({ resolver: zodResolver(newOrg) });
   const [createOrganization, { error }] = useMutation(CREATE_ORG);
-  const [co, setCo] = useState(getValues('companyId'));
+  // const [co, setCo] = useState(getValues('companyId'));
 
   const onSubmit = async (org: NewOrganization) => {
     try {
@@ -70,7 +69,7 @@ export const CreateOrganization = () => {
           <CompanyMenu
             className={inputclass}
             register={register}
-            setValue={setCo}
+            // setValue={setCo}
           />
           {errors.name && (
             <p className={errclass}>{`${errors.companyId?.message}`}</p>
