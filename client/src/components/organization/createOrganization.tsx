@@ -33,6 +33,7 @@ export const CreateOrganization = () => {
   const [createOrganization, { error }] = useMutation(CREATE_ORG);
 
   const onSubmit = async (org: NewOrganization) => {
+    console.log('Create org -> ' + org.companyId);
     try {
       await createOrganization({
         variables: {
@@ -53,7 +54,7 @@ export const CreateOrganization = () => {
       });
       if (!error) {
         dispatch(fetchOrgMenu());
-        navigate(-1);
+        navigate(id ? `/company/${id}` : '-1');
       } else console.log(error);
     } catch (err) {
       console.log(err);

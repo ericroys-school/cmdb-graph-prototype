@@ -2,9 +2,11 @@ import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { FaRocket } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 import { StyledNavLink } from '../../types/styledNavLink';
+import { IoIosHome } from 'react-icons/io';
 
 export const links: StyledNavLink[] = [
-  { name: 'About Us', href: '/', icon: FaRocket },
+  { name: 'About Us', href: '/about', icon: FaRocket },
+  { name: 'Home', href: '/', icon: IoIosHome },
 ];
 
 export const footerLinks: StyledNavLink[] = [

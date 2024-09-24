@@ -8,7 +8,6 @@ import { store } from './store/store.js';
 import App from './App.tsx';
 import './index.css';
 import { CreateCompany } from './components/company/createCompany.tsx';
-import { CompanyList } from './components/company/companyList.tsx';
 import { CreateOrganization } from './components/organization/createOrganization.tsx';
 import { CreateDepartment } from './components/department/createDepartment.tsx';
 import { CompanyPage } from './pages/company/index.tsx';
@@ -16,12 +15,14 @@ import { Company } from './components/company/company.tsx';
 import { Organization } from './components/organization/organization.tsx';
 import { OrganizationList } from './components/organization/organizationList.tsx';
 import { Department } from './components/department/department.tsx';
+import { AboutPage } from './pages/about/index.tsx';
+import { ErrorPage } from './components/error/error.tsx';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <CompanyList />,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
@@ -48,16 +49,20 @@ const router = createBrowserRouter([
         element: <Organization />,
       },
       {
-        path: 'orgcreate/:id',
+        path: '/orgcreate/:id',
         element: <CreateOrganization />,
       },
       {
-        path: 'orglist/:id',
+        path: '/orglist/:id',
         element: <OrganizationList />,
       },
       {
-        path: 'department/:id',
+        path: '/department/:id',
         element: <Department />,
+      },
+      {
+        path: '/about',
+        element: <AboutPage />,
       },
     ],
   },

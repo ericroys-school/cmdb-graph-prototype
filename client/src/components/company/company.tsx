@@ -37,7 +37,7 @@ export const Company = () => {
       icon: IoMdAddCircleOutline,
       text: 'Add Organization',
       onClick: () => {
-        navigate(`/orgcreate/:${id}`);
+        navigate(`/orgcreate/${id}`);
       },
       ...defaultStyleIconText,
     },
