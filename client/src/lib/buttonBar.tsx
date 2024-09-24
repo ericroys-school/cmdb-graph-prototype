@@ -19,6 +19,7 @@ export const ButtonBar = ({ buttons }: Props) => {
             text={b.text}
             txtClass={b.txtClass}
             onClick={b.onClick}
+            size={b.size}
           />
         ))}
       </div>

@@ -10,7 +10,13 @@ shadow-md shadow-blue items-center hover:text-white hover:bg-black mr-2 cursor-p
 //const styledIconTextTxt =
 //('drop-shadow-custom-m-gray font-bold pl-2 hover:shadow-md hover:shadow-blue rounded-md text-black bg-white pr-2 mr-2');
 const styledIconTextIco =
-  'fill-black mb-1 translate-y-3 drop-shadow-custom-sm-blue';
+  'fill-black mb-1 translate-y-1 drop-shadow-custom-sm-blue';
+
+export const defaultStyleIconText = {
+  iconClass: styledIconTextIco,
+  txtClass: styledIconTextTxt,
+  size: 25,
+};
 
 export {
   inputclass,

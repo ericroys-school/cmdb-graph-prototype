@@ -1,4 +1,4 @@
-import { StyledIcon } from './styledIcon';
+import { StyledIcon } from './styledIcon.js';
 
 export type StyledIconText = StyledIcon & {
   text: string;

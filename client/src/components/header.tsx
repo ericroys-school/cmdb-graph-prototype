@@ -16,6 +16,7 @@ export const Header = () => {
           <StyledIconText
             icon={FaBackwardStep}
             text=''
+            size={40}
             iconClass='fill-redish'
             onClick={() => navigate(-1)}
           />
@@ -25,6 +26,7 @@ export const Header = () => {
           <StyledIconText
             icon={FaStepForward}
             text=''
+            size={40}
             iconClass='fill-redish'
             onClick={() => navigate(+1)}
           />

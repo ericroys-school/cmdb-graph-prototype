@@ -1,6 +1,8 @@
 import { inputclass } from '../../components/styling/styles';
 import { CompanyList } from '../../components/company/companyList';
 import { useState } from 'react';
+import StyledIconText from '../../lib/styledIconText';
+import { IoSearch } from 'react-icons/io5';
 
 export const CompanyPage = () => {
   const [s, setS] = useState<string>('<>');
@@ -18,6 +20,12 @@ export const CompanyPage = () => {
             className={inputclass + ' text-center'}
             onChange={(e) => setS(e.currentTarget.value)}
             placeholder='Enter search name here'></input>
+          <StyledIconText
+            icon={IoSearch}
+            text=''
+            size={30}
+            iconClass='drop-shadow-custom-sm-blue flex items-center'
+          />
         </div>
       </article>
       <article className='text-center mt-6 flex flex-col align-middle items-center w-1/2'>

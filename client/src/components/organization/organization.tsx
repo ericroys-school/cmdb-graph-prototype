@@ -7,7 +7,11 @@ import { NoRecords } from '../norecords';
 import { useState } from 'react';
 import { StyledIconText } from '../../types/styledIconTxt';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import { styledIconTextIco, styledIconTextTxt } from '../styling/styles';
+import {
+  defaultStyleIconText,
+  styledIconTextIco,
+  styledIconTextTxt,
+} from '../styling/styles';
 import { SlOrganization } from 'react-icons/sl';
 import { ButtonBar } from '../../lib/buttonBar';
 import { DepartmentList } from '../department/departmentList';
@@ -41,19 +45,17 @@ export const Organization = () => {
     {
       icon: IoMdAddCircleOutline,
       text: 'Add Department',
-      txtClass: styledIconTextTxt,
-      iconClass: styledIconTextIco,
       onClick: () => {
         // console.log('>>>>>>' + id);
         navigate(`/deptcreate/:${id}`);
       },
+      ...defaultStyleIconText,
     },
     {
       icon: SlOrganization,
       text: 'Show Departments',
-      txtClass: styledIconTextTxt,
-      iconClass: styledIconTextIco,
       onClick: () => setIsDeps(!isDeps),
+      ...defaultStyleIconText,
     },
   ];
 

@@ -5,7 +5,7 @@ import { GET_COMPANIES } from '../../types/queries';
 import { GetCompaniesQuery } from '../../graphTypes/graphql';
 import { ButtonBar } from '../../lib/buttonBar';
 import { SlOrganization } from 'react-icons/sl';
-import { styledIconTextIco, styledIconTextTxt } from '../styling/styles';
+import { defaultStyleIconText } from '../styling/styles';
 import { useState } from 'react';
 import { IoMdAddCircleOutline } from 'react-icons/io';
 import { useNavigate } from 'react-router-dom';
@@ -36,19 +36,16 @@ export const Company = () => {
     {
       icon: IoMdAddCircleOutline,
       text: 'Add Organization',
-      txtClass: styledIconTextTxt,
-      iconClass: styledIconTextIco,
       onClick: () => {
-        // console.log('>>>>>>' + id);
         navigate(`/orgcreate/:${id}`);
       },
+      ...defaultStyleIconText,
     },
     {
       icon: SlOrganization,
       text: 'Show Organizations',
-      txtClass: styledIconTextTxt,
-      iconClass: styledIconTextIco,
       onClick: () => setIsOrgs(!isOrgs),
+      ...defaultStyleIconText,
     },
   ];
 
