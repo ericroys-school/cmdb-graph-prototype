@@ -7,11 +7,7 @@ import { NoRecords } from '../norecords';
 import { useState } from 'react';
 import { StyledIconText } from '../../types/styledIconTxt';
 import { IoMdAddCircleOutline } from 'react-icons/io';
-import {
-  defaultStyleIconText,
-  styledIconTextIco,
-  styledIconTextTxt,
-} from '../styling/styles';
+import { defaultStyleIconText } from '../styling/styles';
 import { SlOrganization } from 'react-icons/sl';
 import { ButtonBar } from '../../lib/buttonBar';
 import { DepartmentList } from '../department/departmentList';
