@@ -7,6 +7,8 @@ type OrganizationItem = Pick<
   'name' | 'description' | 'instanceId' | 'isMarkedDelete' | 'company'
 >;
 
+type OrganizationItemShort = Omit<OrganizationItem, 'company'>;
+
 type OrgMenuState = {
   status: OrgMenuStatus;
   data: IMenuPC[];
@@ -26,4 +28,10 @@ type OrgMenuAction = {
 };
 
 type DispatchType = (args: OrgMenuAction) => OrgMenuAction;
-export type { OrgMenuState, OrgMenuAction, DispatchType, OrganizationItem };
+export type {
+  OrgMenuState,
+  OrgMenuAction,
+  DispatchType,
+  OrganizationItem,
+  OrganizationItemShort,
+};

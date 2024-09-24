@@ -12,6 +12,10 @@ import { CompanyList } from './components/company/companyList.tsx';
 import { CreateOrganization } from './components/organization/createOrganization.tsx';
 import { CreateDepartment } from './components/department/createDepartment.tsx';
 import { CompanyPage } from './pages/company/index.tsx';
+import { Company } from './components/company/company.tsx';
+import { Organization } from './components/organization/organization.tsx';
+import { OrganizationList } from './components/organization/organizationList.tsx';
+import { Department } from './components/department/department.tsx';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,26 @@ const router = createBrowserRouter([
       {
         path: '/deptcreate',
         element: <CreateDepartment />,
+      },
+      {
+        path: '/company/:id',
+        element: <Company />,
+      },
+      {
+        path: '/organization/:id',
+        element: <Organization />,
+      },
+      {
+        path: 'orgcreate/:id',
+        element: <CreateOrganization />,
+      },
+      {
+        path: 'orglist/:id',
+        element: <OrganizationList />,
+      },
+      {
+        path: 'department/:id',
+        element: <Department />,
       },
     ],
   },

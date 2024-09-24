@@ -1,11 +1,17 @@
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CREATE_ORG } from '../../types/mutations';
 import { NewOrganization } from '../../types/types';
 import { newOrg } from '../../validators/validators';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { btnclass, errclass, inputclass, lblClass } from '../styling/styles';
+import {
+  btnclass,
+  errclass,
+  inputclass,
+  inputclassHidden,
+  lblClass,
+} from '../styling/styles';
 import { CompanyMenu } from '../company/companyMenu';
 import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
@@ -15,6 +21,7 @@ import { fetchOrgMenu } from '../../reducers/organization/organization';
 
 export const CreateOrganization = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const dispatch = useAppDispatch();
 
   const {
@@ -24,7 +31,6 @@ export const CreateOrganization = () => {
     formState: { errors, isSubmitting },
   } = useForm<NewOrganization>({ resolver: zodResolver(newOrg) });
   const [createOrganization, { error }] = useMutation(CREATE_ORG);
-  // const [co, setCo] = useState(getValues('companyId'));
 
   const onSubmit = async (org: NewOrganization) => {
     try {
@@ -47,7 +53,7 @@ export const CreateOrganization = () => {
       });
       if (!error) {
         dispatch(fetchOrgMenu());
-        navigate('/');
+        navigate(-1);
       } else console.log(error);
     } catch (err) {
       console.log(err);
@@ -69,22 +75,24 @@ export const CreateOrganization = () => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           className='bg-black b-t-0 rounded-b-2xl p-4 w-3/4'>
-          <label htmlFor='company' className={lblClass}>
-            Company
-          </label>
-          <CompanyMenu
-            className={inputclass}
-            register={register}
-            // setValue={setCo}
-          />
+          {id ? (
+            <input
+              className={inputclassHidden}
+              value={id}
+              id='companyId'
+              {...register('companyId')}></input>
+          ) : (
+            <>
+              <label htmlFor='company' className={lblClass}>
+                Company
+              </label>
+              <CompanyMenu className={inputclass} register={register} />
+            </>
+          )}
+
           {errors.name && (
             <p className={errclass}>{`${errors.companyId?.message}`}</p>
           )}
-          {/* <OrganizationMenu
-            className={inputclass}
-            register={register}
-            companyId={co}
-          /> */}
           <label htmlFor='organization' className={lblClass}>
             Organization
           </label>

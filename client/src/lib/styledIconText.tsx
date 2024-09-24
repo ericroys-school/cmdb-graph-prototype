@@ -16,11 +16,11 @@ export default function IconWithText({
 }: StyledIconText) {
   //basic defaults for text and icon styling
   const default_tclass = 'ml-2 ';
-  const default_iclass = 'translate-y-1 ';
+  const default_iclass = '';
 
   //optionally append if input received
-  let tClass = txtClass ? default_tclass + txtClass : default_tclass;
-  let iClass = iconClass ? default_iclass + iconClass : default_iclass;
+  let tClass = txtClass ? `${default_tclass} ${txtClass}` : default_tclass;
+  let iClass = iconClass ? `${default_iclass} ${iconClass}` : default_iclass;
 
   return (
     <div onClick={onClick} className='flex align-baseline items-start'>

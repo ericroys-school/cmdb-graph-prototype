@@ -35,8 +35,6 @@ query GetAllCompanyWithOptions($where: CompanyWhere, $options: CompanyOptions){
   companies(where: $where, options: $options) {
     name
     instanceId
-    assetTag
-    cost
     description
     isMarkedDelete
     type
@@ -44,16 +42,83 @@ query GetAllCompanyWithOptions($where: CompanyWhere, $options: CompanyOptions){
 }
 `);
 
-export const GETCOMPANIES = gql(` 
+export const GET_COMPANIES = gql(` 
 query GetCompanies($where: CompanyWhere, $options: CompanyOptions){
   companies(where: $where, options: $options) {
     name
+    type
+    description
     instanceId
-    assetTag
-    cost
+    isMarkedDelete
+    organization {
+      company {
+        name
+        instanceId
+      }
+    }
+    organizationConnection {
+      totalCount
+    }
+  }
+}
+`);
+
+export const GET_ORGANIZATIONS_SHORT = gql(`
+  query GetOrganizationsShort($where: OrganizationWhere) {
+    organizations(where: $where) {
+      name
+      instanceId
+      description
+      isMarkedDelete
+    }
+  }
+`);
+
+export const GET_ORGANIZATIONS = gql(`
+query GetOrganizations($where: OrganizationWhere, $options: OrganizationOptions) {
+  organizations(where: $where, options: $options) {
+    name
+    instanceId
     description
     isMarkedDelete
-    type
+    company {
+      name
+      instanceId
+    }
+    departments {
+      name
+      instanceId
+    }
+  }
+}
+`);
+
+export const GET_DEPARTMENTS_SHORT = gql(`
+query GetDepartmentsShort($where: DepartmentWhere) {
+  departments(where: $where) {
+    name
+    instanceId
+    description
+    isMarkedDelete
+  }
+}
+`);
+
+export const GET_DEPARTMENTS = gql(`
+query GetDepartments($where: DepartmentWhere) {
+  departments(where: $where) {
+    name
+    instanceId
+    description
+    isMarkedDelete
+  }
+  companies {
+    name
+    instanceId
+  }
+  organizations {
+    name
+    instanceId
   }
 }
 `);
