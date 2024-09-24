@@ -43,7 +43,7 @@ export const Organization = () => {
       text: 'Add Department',
       onClick: () => {
         // console.log('>>>>>>' + id);
-        navigate(`/deptcreate/:${id}`);
+        navigate(`/deptcreate/${id}`);
       },
       ...defaultStyleIconText,
     },

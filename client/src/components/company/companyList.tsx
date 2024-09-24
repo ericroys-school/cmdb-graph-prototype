@@ -7,7 +7,7 @@ export type Props = {
   search?: string | undefined | null;
 };
 export const CompanyList = ({ search }: Props) => {
-  if (!search) return <></>;
+  if (search === undefined) return <></>;
   let name_CONTAINS = search;
   const { loading, data, error } = useQuery<GetAllCompanyWithOptionsQuery>(
     GET_ALL_COMPANY_WITH_OPTIONS,

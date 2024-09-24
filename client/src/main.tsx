@@ -61,6 +61,10 @@ const router = createBrowserRouter([
         element: <Department />,
       },
       {
+        path: '/deptcreate/:id',
+        element: <CreateDepartment />,
+      },
+      {
         path: '/about',
         element: <AboutPage />,
       },
