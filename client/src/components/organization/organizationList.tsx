@@ -30,12 +30,31 @@ export const OrganizationList = ({ companyId }: Props) => {
   );
   const loadMsg = <div>... loading ... </div>;
   const errMsg = <div>{JSON.stringify(error)}</div>;
+  const hasResults =
+    data && data.organizations && data.organizations.length > 0;
   const content = (
-    <div className='flex items-center w-full justify-center'>
-      <div className='w-1/2 flex flex-row flex-wrap justify-around'>
-        {data?.organizations.map((c) => (
-          <OrganizationListItem key={c.instanceId} data={c} />
-        ))}
+    <div className='w-full items-center justify-items-center content-center'>
+      <div className='flex items-center w-full justify-center'>
+        {hasResults ? (
+          <div className='text-center'>
+            <h1 className='text-3xl font-bold drop-shadow-custom-m-gray'>
+              Organizations
+            </h1>
+          </div>
+        ) : (
+          <></>
+        )}
+      </div>
+      <div className='flex flex-col w-full items-center justify-items-center'>
+        {hasResults ? (
+          <>
+            {data?.organizations.map((c) => (
+              <OrganizationListItem key={c.instanceId} data={c} />
+            ))}
+          </>
+        ) : (
+          <span className='text-center'>No matches found</span>
+        )}
       </div>
     </div>
   );

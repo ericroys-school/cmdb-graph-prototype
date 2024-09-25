@@ -17,30 +17,42 @@ export const CreateCompany = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<NewCompany>({ resolver: zodResolver(newCompany) });
 
-  const [createCompany, { error }] = useMutation(CREATE_COMPANY);
+  const [createCompany] = useMutation(CREATE_COMPANY, {
+    variables: {
+      input: {
+        name: getValues('name'),
+        description: getValues('description'),
+        type: getValues('type'),
+      },
+    },
+  });
 
-  const onSubmit = async (com: NewCompany) => {
+  const onSubmit = async () => {
     try {
-      await createCompany({
-        variables: {
-          input: {
-            name: com.name,
-            description: com.description,
-            type: com.type,
-          },
-        },
-      });
-      // console.log(`create returned data ${data}`);
-      if (!error) {
+      const { data, errors } = await createCompany();
+
+      if (!errors) {
+        //update store with new company info
         dispatch(fetchCompanyMenu());
-        navigate('/');
-      } else console.log(error);
+        //get the instance id from created company to
+        //redirect to display
+        if (data) {
+          const { createCompanies } = data;
+          const cid =
+            createCompanies &&
+            createCompanies.companies &&
+            createCompanies.companies.length > 0
+              ? createCompanies.companies[0].instanceId
+              : null;
+          if (cid) navigate(`/company/${cid}`);
+        }
+      } else errors.forEach((e) => console.log(e.message));
     } catch (error) {
       console.log(error);
-      //TODO:
     }
   };
 

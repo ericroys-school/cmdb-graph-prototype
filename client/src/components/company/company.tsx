@@ -65,12 +65,16 @@ export const Company = () => {
           <h1 className='font-extrabold'>{d.name}</h1>
           <p>{d.description}</p>
           <p>{d.type}</p>
-          <p>{`Has [${d.organization.length}] organizations`}</p>
         </div>
-        <p>{`isdisplay: ${isOrgs}`}</p>
       </article>
       <ButtonBar buttons={buttons} />
-      {isOrgs ? <OrganizationList companyId={id} /> : <></>}
+      {isOrgs ? (
+        <article className='text-center mt-6 flex flex-col align-middle items-center w-1/2'>
+          <OrganizationList companyId={id} />{' '}
+        </article>
+      ) : (
+        <></>
+      )}
     </section>
   );
 };

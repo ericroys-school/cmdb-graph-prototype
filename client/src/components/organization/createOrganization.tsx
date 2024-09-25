@@ -17,7 +17,6 @@ import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
 import { useAppDispatch } from '../../store/storeHooks';
 import { fetchOrgMenu } from '../../reducers/organization/organization';
-// import { useState } from 'react';
 
 export const CreateOrganization = () => {
   const navigate = useNavigate();
@@ -27,35 +26,34 @@ export const CreateOrganization = () => {
   const {
     register,
     handleSubmit,
-    // getValues,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<NewOrganization>({ resolver: zodResolver(newOrg) });
-  const [createOrganization, { error }] = useMutation(CREATE_ORG);
-
-  const onSubmit = async (org: NewOrganization) => {
-    console.log('Create org -> ' + org.companyId);
-    try {
-      await createOrganization({
-        variables: {
-          input: {
-            name: org.name,
-            description: org.description,
-            company: {
-              connect: {
-                where: {
-                  node: {
-                    instanceId: org.companyId,
-                  },
-                },
+  const [createOrganization, { error }] = useMutation(CREATE_ORG, {
+    variables: {
+      input: {
+        name: getValues('name'),
+        description: getValues('description'),
+        company: {
+          connect: {
+            where: {
+              node: {
+                instanceId: getValues('companyId'),
               },
             },
           },
         },
-      });
-      if (!error) {
+      },
+    },
+  });
+
+  const onSubmit = async () => {
+    try {
+      const { errors } = await createOrganization();
+      if (!errors) {
         dispatch(fetchOrgMenu());
         navigate(id ? `/company/${id}` : '-1');
-      } else console.log(error);
+      } else errors.forEach((e) => console.log(e.message));
     } catch (err) {
       console.log(err);
     }

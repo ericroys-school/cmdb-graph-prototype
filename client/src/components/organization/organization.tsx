@@ -79,7 +79,13 @@ export const Organization = () => {
         </div>
       </article>
       <ButtonBar buttons={buttons} />
-      {isDeps ? <DepartmentList organizationId={id} /> : <></>}
+      {isDeps ? (
+        <article className='text-center mt-6 flex flex-col align-middle items-center w-1/2'>
+          <DepartmentList organizationId={id} />{' '}
+        </article>
+      ) : (
+        <></>
+      )}
     </section>
   );
 };

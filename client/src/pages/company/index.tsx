@@ -9,7 +9,7 @@ export const CompanyPage = () => {
   //use 2x use states to have search results only display
   //after press search otherwise too many queries to server
   const [s, setS] = useState<string>('');
-  const [t, setT] = useState<string>();
+  const [t, setT] = useState<string>('______');
 
   return (
     <section className='flex flex-col items-center w-full justify-center'>
@@ -21,7 +21,7 @@ export const CompanyPage = () => {
           id='search'
           className='mt-10 w-3/4 rounded-md flex justify-between'>
           <input
-            className={inputclass + ' text-center'}
+            className={inputclass + ' text-center mr-2'}
             onChange={(e) => setS(e.currentTarget.value)}
             placeholder='Enter search name here'></input>
           <StyledIconText
