@@ -24,12 +24,14 @@ export const DepartmentList = ({ organizationId }: Props) => {
             instanceId: instanceId,
           },
         },
+        options: { sort: [{ name: 'ASC' }] },
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
 
-  if (!loading && (!data || !data.departments || data.departments.length < 1))
-    return <ErrorPage error={'Department not found'} />;
+  // if (!loading && (!data || !data.departments || data.departments.length < 1))
+  //   return <ErrorPage error={'Department not found'} />;
   const hasResults = data && data.departments && data.departments.length > 0;
   return error ? (
     <ErrorPage error={JSON.stringify(error)} />

@@ -25,7 +25,9 @@ export const OrganizationList = ({ companyId }: Props) => {
             instanceId: instanceId,
           },
         },
+        options: { sort: [{ name: 'ASC' }] },
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
   const loadMsg = <div>... loading ... </div>;

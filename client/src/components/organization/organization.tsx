@@ -27,6 +27,7 @@ export const Organization = () => {
           isMarkedDelete: false,
         },
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
 

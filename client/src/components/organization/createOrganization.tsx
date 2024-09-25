@@ -29,7 +29,7 @@ export const CreateOrganization = () => {
     getValues,
     formState: { errors, isSubmitting },
   } = useForm<NewOrganization>({ resolver: zodResolver(newOrg) });
-  const [createOrganization, { error }] = useMutation(CREATE_ORG, {
+  const [createOrganization] = useMutation(CREATE_ORG, {
     variables: {
       input: {
         name: getValues('name'),

@@ -27,11 +27,13 @@ export const Company = () => {
         isMarkedDelete: false,
       },
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (!loading && (!data || !data.companies || data.companies.length < 1))
     return <ErrorPage error={'Company not found'} />;
   const d = data?.companies[0];
+  // console.log(JSON.stringify(d));
   const buttons: StyledIconText[] = [
     {
       icon: IoMdAddCircleOutline,

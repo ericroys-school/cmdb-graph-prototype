@@ -18,6 +18,7 @@ export const CompanyList = ({ search }: Props) => {
         },
         options: { sort: [{ name: 'ASC' }] },
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
   const loadMsg = <div>... loading ... </div>;

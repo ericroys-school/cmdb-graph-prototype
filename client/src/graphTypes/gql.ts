@@ -22,10 +22,10 @@ const documents = {
     "\nquery GetOrgsForCompany($where: OrganizationWhere){\n  organizations(where: $where){\n    name\n    instanceId\n    company{\n      instanceId\n    }\n  }\n}\n": types.GetOrgsForCompanyDocument,
     "\nquery GetAllCompanyWithOptions($where: CompanyWhere, $options: CompanyOptions){\n  companies(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n    type\n  }\n}\n": types.GetAllCompanyWithOptionsDocument,
     " \nquery GetCompanies($where: CompanyWhere, $options: CompanyOptions){\n  companies(where: $where, options: $options) {\n    name\n    type\n    description\n    instanceId\n    isMarkedDelete\n    organization {\n      company {\n        name\n        instanceId\n      }\n    }\n    organizationConnection {\n      totalCount\n    }\n  }\n}\n": types.GetCompaniesDocument,
-    "\n  query GetOrganizationsShort($where: OrganizationWhere) {\n    organizations(where: $where) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n": types.GetOrganizationsShortDocument,
+    "\n  query GetOrganizationsShort($where: OrganizationWhere, $options: OrganizationOptions) {\n    organizations(where: $where, options: $options) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n": types.GetOrganizationsShortDocument,
     "\nquery GetOrganizations($where: OrganizationWhere, $options: OrganizationOptions) {\n  organizations(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n    company {\n      name\n      instanceId\n    }\n    departments {\n      name\n      instanceId\n    }\n  }\n}\n": types.GetOrganizationsDocument,
-    "\nquery GetDepartmentsShort($where: DepartmentWhere) {\n  departments(where: $where) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n": types.GetDepartmentsShortDocument,
-    "\nquery GetDepartments($where: DepartmentWhere) {\n  departments(where: $where) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n": types.GetDepartmentsDocument,
+    "\nquery GetDepartmentsShort($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n": types.GetDepartmentsShortDocument,
+    "\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n": types.GetDepartmentsDocument,
 };
 
 /**
@@ -81,7 +81,7 @@ export function gql(source: " \nquery GetCompanies($where: CompanyWhere, $option
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query GetOrganizationsShort($where: OrganizationWhere) {\n    organizations(where: $where) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n"): (typeof documents)["\n  query GetOrganizationsShort($where: OrganizationWhere) {\n    organizations(where: $where) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n"];
+export function gql(source: "\n  query GetOrganizationsShort($where: OrganizationWhere, $options: OrganizationOptions) {\n    organizations(where: $where, options: $options) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n"): (typeof documents)["\n  query GetOrganizationsShort($where: OrganizationWhere, $options: OrganizationOptions) {\n    organizations(where: $where, options: $options) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -89,11 +89,11 @@ export function gql(source: "\nquery GetOrganizations($where: OrganizationWhere,
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetDepartmentsShort($where: DepartmentWhere) {\n  departments(where: $where) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n"): (typeof documents)["\nquery GetDepartmentsShort($where: DepartmentWhere) {\n  departments(where: $where) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n"];
+export function gql(source: "\nquery GetDepartmentsShort($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n"): (typeof documents)["\nquery GetDepartmentsShort($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetDepartments($where: DepartmentWhere) {\n  departments(where: $where) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n"): (typeof documents)["\nquery GetDepartments($where: DepartmentWhere) {\n  departments(where: $where) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n"];
+export function gql(source: "\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n"): (typeof documents)["\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

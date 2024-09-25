@@ -64,8 +64,8 @@ query GetCompanies($where: CompanyWhere, $options: CompanyOptions){
 `);
 
 export const GET_ORGANIZATIONS_SHORT = gql(`
-  query GetOrganizationsShort($where: OrganizationWhere) {
-    organizations(where: $where) {
+  query GetOrganizationsShort($where: OrganizationWhere, $options: OrganizationOptions) {
+    organizations(where: $where, options: $options) {
       name
       instanceId
       description
@@ -94,8 +94,8 @@ query GetOrganizations($where: OrganizationWhere, $options: OrganizationOptions)
 `);
 
 export const GET_DEPARTMENTS_SHORT = gql(`
-query GetDepartmentsShort($where: DepartmentWhere) {
-  departments(where: $where) {
+query GetDepartmentsShort($where: DepartmentWhere, $options: DepartmentOptions) {
+  departments(where: $where, options: $options) {
     name
     instanceId
     description
@@ -105,8 +105,8 @@ query GetDepartmentsShort($where: DepartmentWhere) {
 `);
 
 export const GET_DEPARTMENTS = gql(`
-query GetDepartments($where: DepartmentWhere) {
-  departments(where: $where) {
+query GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {
+  departments(where: $where, options: $options) {
     name
     instanceId
     description
