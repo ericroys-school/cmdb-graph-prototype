@@ -1,12 +1,17 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorPage } from '../error/error';
 import { GET_DEPARTMENTS } from '../../types/queries';
 import { GetDepartmentsQuery } from '../../graphTypes/graphql';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { NoRecords } from '../norecords';
+import StyledIconText from '../../lib/styledIconText';
+import { FaTrash } from 'react-icons/fa';
+import { defaultStyleIconText } from '../styling/styles';
+import { DELETE_DEPT } from '../../types/mutations';
 
 export const Department = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   if (!id) return <ErrorPage error='No id provided for the department' />;
   const { loading, data, error } = useQuery<GetDepartmentsQuery>(
@@ -20,6 +25,27 @@ export const Department = () => {
       },
     }
   );
+
+  const [deleteDepartment] = useMutation(DELETE_DEPT, {
+    variables: {
+      where: {
+        instanceId: id,
+      },
+    },
+  });
+
+  const handleDelete = async () => {
+    try {
+      const { errors, data } = await deleteDepartment();
+      if (errors) {
+        console.log(JSON.stringify(errors));
+      } else {
+        !data ? console.log(' no data after delete') : navigate(-1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (!loading && (!data || !data.departments || data.departments.length < 1))
     return <NoRecords />;
@@ -41,6 +67,13 @@ export const Department = () => {
           <h1 className='font-extrabold'>{d.name}</h1>
           <p>{d.description}</p>
         </div>
+        <StyledIconText
+          icon={FaTrash}
+          text={''}
+          onClick={handleDelete}
+          size={defaultStyleIconText.size}
+          iconClass={defaultStyleIconText.iconClass}
+        />
       </article>
     </section>
   );

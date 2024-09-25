@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { ErrorPage } from '../error/error';
 import { GetOrganizationsQuery } from '../../graphTypes/graphql';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_ORGANIZATIONS } from '../../types/queries';
 import { NoRecords } from '../norecords';
 import { useState } from 'react';
@@ -11,6 +11,8 @@ import { defaultStyleIconText } from '../styling/styles';
 import { SlOrganization } from 'react-icons/sl';
 import { ButtonBar } from '../../lib/buttonBar';
 import { DepartmentList } from '../department/departmentList';
+import { BsTrash3 } from 'react-icons/bs';
+import { DELETE_ORG } from '../../types/mutations';
 
 export const Organization = () => {
   const { id } = useParams();
@@ -30,6 +32,27 @@ export const Organization = () => {
       fetchPolicy: 'cache-and-network',
     }
   );
+
+  const [deleteOrganization] = useMutation(DELETE_ORG, {
+    variables: {
+      where: {
+        instanceId: id,
+      },
+    },
+  });
+
+  const handleDelete = async () => {
+    try {
+      const { errors, data } = await deleteOrganization();
+      if (errors) {
+        console.log(JSON.stringify(errors));
+      } else {
+        !data ? console.log(' no data after delete') : navigate(-1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   if (
     !loading &&
@@ -52,6 +75,12 @@ export const Organization = () => {
       icon: SlOrganization,
       text: 'Show Departments',
       onClick: () => setIsDeps(!isDeps),
+      ...defaultStyleIconText,
+    },
+    {
+      icon: BsTrash3,
+      text: 'Delete',
+      onClick: () => handleDelete(),
       ...defaultStyleIconText,
     },
   ];
