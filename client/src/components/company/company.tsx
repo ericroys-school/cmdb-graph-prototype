@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { ErrorPage } from '../error/error';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_COMPANIES } from '../../types/queries';
 import { GetCompaniesQuery } from '../../graphTypes/graphql';
 import { ButtonBar } from '../../lib/buttonBar';
@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { StyledIconText } from '../../types/styledIconTxt';
 import { OrganizationList } from '../organization/organizationList';
 import { NoRecords } from '../norecords';
+import { BsTrash3 } from 'react-icons/bs';
+import { DELETE_COMPANY } from '../../types/mutations';
 
 export const Company = () => {
   const { id } = useParams();
@@ -30,6 +32,27 @@ export const Company = () => {
     fetchPolicy: 'cache-and-network',
   });
 
+  const [deleteCompany] = useMutation(DELETE_COMPANY, {
+    variables: {
+      where: {
+        instanceId: id,
+      },
+    },
+  });
+
+  const handleDelete = async () => {
+    try {
+      const { errors, data } = await deleteCompany();
+      if (errors) {
+        console.log(JSON.stringify(errors));
+      } else {
+        !data ? console.log(' no data after delete') : navigate(-1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   if (!loading && (!data || !data.companies || data.companies.length < 1))
     return <ErrorPage error={'Company not found'} />;
   const d = data?.companies[0];
@@ -47,6 +70,12 @@ export const Company = () => {
       icon: SlOrganization,
       text: 'Show Organizations',
       onClick: () => setIsOrgs(!isOrgs),
+      ...defaultStyleIconText,
+    },
+    {
+      icon: BsTrash3,
+      text: 'Delete',
+      onClick: () => handleDelete(),
       ...defaultStyleIconText,
     },
   ];
