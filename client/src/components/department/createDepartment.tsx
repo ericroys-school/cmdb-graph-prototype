@@ -1,20 +1,29 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { NewDepartment } from '../../types/types';
 import { newDept } from '../../validators/validators';
 import { CREATE_DEPT } from '../../types/mutations';
 import { useMutation } from '@apollo/client';
-import { btnclass, errclass, inputclass, lblClass } from '../styling/styles';
+import {
+  btnclass,
+  errclass,
+  inputclass,
+  inputclassHidden,
+  lblClass,
+} from '../styling/styles';
 import IconWithText from '../../lib/styledIconText';
 import { SiMinutemailer } from 'react-icons/si';
 import { CompanyMenu } from '../company/companyMenu';
 import { OrganizationMenu } from '../organization/organizationMenu';
 import { useState } from 'react';
+import { selectParentByOrgId } from '../../reducers/organization/organization';
+import { useAppSelector } from '../../store/storeHooks';
 
 export const CreateDepartment = () => {
   const navigate = useNavigate();
-
+  const { id } = useParams();
+  let coid = null;
   const {
     register,
     handleSubmit,
@@ -22,7 +31,11 @@ export const CreateDepartment = () => {
   } = useForm<NewDepartment>({ resolver: zodResolver(newDept) });
   const [createDepartment, { error }] = useMutation(CREATE_DEPT);
   //needed so state can be shared with org menu
-  const [co, setCo] = useState<string>('');
+  const [co, _setCo] = useState<string>('');
+  if (id) {
+    const ires = useAppSelector((state) => selectParentByOrgId(state, id));
+    coid = ires && ires.parent ? ires.parent : null;
+  }
 
   const onSubmit = async (dept: NewDepartment) => {
     console.log('>>>>: ' + dept.organizationId);
@@ -44,7 +57,7 @@ export const CreateDepartment = () => {
           },
         },
       });
-      !error ? navigate('/') : console.log(error);
+      !error ? navigate(id ? `/organization/${id}` : '-1') : console.log(error);
     } catch (error) {
       console.log(error);
     }
@@ -65,25 +78,39 @@ export const CreateDepartment = () => {
         <form
           onSubmit={handleSubmit(onSubmit)}
           className='bg-black b-t-0 rounded-b-2xl p-4 w-3/4'>
-          <label htmlFor='company' className={lblClass}>
-            Company
-          </label>
-          <CompanyMenu
-            className={inputclass}
-            register={register}
-            setValue={setCo}
-          />
-          <label htmlFor='organization' className={lblClass}>
-            Organization
-          </label>
-          <OrganizationMenu
-            className={inputclass}
-            register={register}
-            companyId={co}
-          />
-          {errors.name && (
-            <p className={errclass}>{`${errors.organizationId?.message}`}</p>
+          {coid ? (
+            <>
+              <input
+                className={inputclassHidden}
+                defaultValue={coid}
+                id='companyId'></input>
+              <input
+                className={inputclassHidden}
+                defaultValue={id}
+                {...register('organizationId')}
+                id='organization'></input>
+            </>
+          ) : (
+            <>
+              <label htmlFor='company' className={lblClass}>
+                Company
+              </label>
+              <CompanyMenu className={inputclass} register={register} />
+              <label htmlFor='organization' className={lblClass}>
+                Organization
+              </label>
+              <OrganizationMenu
+                className={inputclass}
+                register={register}
+                companyId={coid ? coid : co}
+              />
+              {errors.name && (
+                <p
+                  className={errclass}>{`${errors.organizationId?.message}`}</p>
+              )}
+            </>
           )}
+
           <label htmlFor='department' className={lblClass}>
             Name
           </label>

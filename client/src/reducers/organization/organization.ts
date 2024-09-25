@@ -102,3 +102,9 @@ export const selectItemsById = createSelector(
       return i.parent === itemId;
     })
 );
+
+//find the matching parent using the organization id as key
+export const selectParentByOrgId = createSelector(
+  [selectItems, selectItemId],
+  (items, id) => items.find((i) => i.key === id)
+);
