@@ -5,7 +5,6 @@ import { GetDepartmentsQuery } from '../../graphTypes/graphql';
 import { useMutation, useQuery } from '@apollo/client';
 import { NoRecords } from '../norecords';
 import { StyledIconText } from '../../types/styledIconTxt';
-import { FaTrash } from 'react-icons/fa';
 import { defaultStyleIconText } from '../styling/styles';
 import { DELETE_DEPT } from '../../types/mutations';
 import { RiEdit2Line } from 'react-icons/ri';
