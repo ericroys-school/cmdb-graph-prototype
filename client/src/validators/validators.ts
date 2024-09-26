@@ -21,6 +21,25 @@ export const newOrg = z.object({
     .max(255, 'Please keep your descriptions brief (< 255 Chars)'),
   companyId: z.string({ required_error: 'Company instanceId is required' }),
 });
+export const updateOrg = z.object({
+  name: z
+    .string()
+    .min(3, 'Please enter at least three chars')
+    .max(50, 'Names max out at 50'),
+  description: z
+    .string()
+    .max(255, 'Please keep your descriptions brief (< 255 Chars)'),
+});
+
+export const updateDept = z.object({
+  name: z
+    .string()
+    .min(3, 'Please enter at least three chars')
+    .max(50, 'Names max out at 50'),
+  description: z
+    .string()
+    .max(255, 'Please keep your descriptions brief (< 255 Chars)'),
+});
 
 export const newDept = z.object({
   name: z

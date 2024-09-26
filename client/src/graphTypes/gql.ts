@@ -14,10 +14,13 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "\n  mutation createCompany($input: [CompanyCreateInput!]!) {\n    createCompanies(input: $input) {\n      companies {\n        name\n        instanceId\n      }\n    }\n  }\n": types.CreateCompanyDocument,
+    "\nmutation updateCompanies($update: CompanyUpdateInput, $where: CompanyWhere) {\n  updateCompanies(update: $update, where: $where) {\n    companies {\n      instanceId\n      name\n    }\n  }\n}\n": types.UpdateCompaniesDocument,
     "\nmutation DeleteCompanies($where: CompanyWhere) {\n  deleteCompanies(where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n": types.DeleteCompaniesDocument,
     "\n  mutation createOrganization($input: [OrganizationCreateInput!]!) {\n    createOrganizations(input: $input) {\n      organizations {\n        name\n        description\n        company {\n          name\n        }\n      }\n    }\n  }\n": types.CreateOrganizationDocument,
+    "\nmutation updateOrganizations($where: OrganizationWhere, $update: OrganizationUpdateInput) {\n  updateOrganizations(where: $where, update: $update) {\n    organizations {\n      name\n      instanceId\n    }\n  }\n}\n": types.UpdateOrganizationsDocument,
     "\nmutation DeleteOrganizations($where: OrganizationWhere) {\n  deleteOrganizations(where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n": types.DeleteOrganizationsDocument,
     "\n  mutation createDepartment($input: [DepartmentCreateInput!]!) {\n    createDepartments(input: $input) {\n      departments {\n        name\n        instanceId\n        description\n        organization {\n          instanceId\n          name\n        }\n      }\n    }\n  }\n": types.CreateDepartmentDocument,
+    "\nmutation updateDepartments($where: DepartmentWhere, $update: DepartmentUpdateInput) {\n  updateDepartments(where: $where, update: $update) {\n    departments {\n      name\n      instanceId\n    }\n  }\n}\n": types.UpdateDepartmentsDocument,
     "\nmutation deleteDepartments($delete: DepartmentDeleteInput, $where: DepartmentWhere) {\n  deleteDepartments(delete: $delete, where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n": types.DeleteDepartmentsDocument,
     "\n  mutation createPerson($input: [PersonCreateInput!]!) {\n    createPeople(input: $input) {\n      people {\n        firstName\n        lastName\n        instanceId\n        department {\n          name\n          instanceId\n        }\n      }\n    }\n  }\n": types.CreatePersonDocument,
     "\n  query GetIPs {\n    ips {\n      instanceId\n      address\n    }\n  }\n": types.GetIPsDocument,
@@ -28,7 +31,7 @@ const documents = {
     "\n  query GetOrganizationsShort($where: OrganizationWhere, $options: OrganizationOptions) {\n    organizations(where: $where, options: $options) {\n      name\n      instanceId\n      description\n      isMarkedDelete\n    }\n  }\n": types.GetOrganizationsShortDocument,
     "\nquery GetOrganizations($where: OrganizationWhere, $options: OrganizationOptions) {\n  organizations(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n    company {\n      name\n      instanceId\n    }\n    departments {\n      name\n      instanceId\n    }\n  }\n}\n": types.GetOrganizationsDocument,
     "\nquery GetDepartmentsShort($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n}\n": types.GetDepartmentsShortDocument,
-    "\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n": types.GetDepartmentsDocument,
+    "\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n    organization {\n      name\n      instanceId\n    }\n  }\n}\n": types.GetDepartmentsDocument,
 };
 
 /**
@@ -52,6 +55,10 @@ export function gql(source: "\n  mutation createCompany($input: [CompanyCreateIn
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\nmutation updateCompanies($update: CompanyUpdateInput, $where: CompanyWhere) {\n  updateCompanies(update: $update, where: $where) {\n    companies {\n      instanceId\n      name\n    }\n  }\n}\n"): (typeof documents)["\nmutation updateCompanies($update: CompanyUpdateInput, $where: CompanyWhere) {\n  updateCompanies(update: $update, where: $where) {\n    companies {\n      instanceId\n      name\n    }\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\nmutation DeleteCompanies($where: CompanyWhere) {\n  deleteCompanies(where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n"): (typeof documents)["\nmutation DeleteCompanies($where: CompanyWhere) {\n  deleteCompanies(where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
@@ -60,11 +67,19 @@ export function gql(source: "\n  mutation createOrganization($input: [Organizati
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\nmutation updateOrganizations($where: OrganizationWhere, $update: OrganizationUpdateInput) {\n  updateOrganizations(where: $where, update: $update) {\n    organizations {\n      name\n      instanceId\n    }\n  }\n}\n"): (typeof documents)["\nmutation updateOrganizations($where: OrganizationWhere, $update: OrganizationUpdateInput) {\n  updateOrganizations(where: $where, update: $update) {\n    organizations {\n      name\n      instanceId\n    }\n  }\n}\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\nmutation DeleteOrganizations($where: OrganizationWhere) {\n  deleteOrganizations(where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n"): (typeof documents)["\nmutation DeleteOrganizations($where: OrganizationWhere) {\n  deleteOrganizations(where: $where) {\n    nodesDeleted\n    relationshipsDeleted\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation createDepartment($input: [DepartmentCreateInput!]!) {\n    createDepartments(input: $input) {\n      departments {\n        name\n        instanceId\n        description\n        organization {\n          instanceId\n          name\n        }\n      }\n    }\n  }\n"): (typeof documents)["\n  mutation createDepartment($input: [DepartmentCreateInput!]!) {\n    createDepartments(input: $input) {\n      departments {\n        name\n        instanceId\n        description\n        organization {\n          instanceId\n          name\n        }\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\nmutation updateDepartments($where: DepartmentWhere, $update: DepartmentUpdateInput) {\n  updateDepartments(where: $where, update: $update) {\n    departments {\n      name\n      instanceId\n    }\n  }\n}\n"): (typeof documents)["\nmutation updateDepartments($where: DepartmentWhere, $update: DepartmentUpdateInput) {\n  updateDepartments(where: $where, update: $update) {\n    departments {\n      name\n      instanceId\n    }\n  }\n}\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -108,7 +123,7 @@ export function gql(source: "\nquery GetDepartmentsShort($where: DepartmentWhere
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n"): (typeof documents)["\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n  }\n  companies {\n    name\n    instanceId\n  }\n  organizations {\n    name\n    instanceId\n  }\n}\n"];
+export function gql(source: "\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n    organization {\n      name\n      instanceId\n    }\n  }\n}\n"): (typeof documents)["\nquery GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {\n  departments(where: $where, options: $options) {\n    name\n    instanceId\n    description\n    isMarkedDelete\n    organization {\n      name\n      instanceId\n    }\n  }\n}\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

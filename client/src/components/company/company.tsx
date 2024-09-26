@@ -14,6 +14,7 @@ import { OrganizationList } from '../organization/organizationList';
 import { NoRecords } from '../norecords';
 import { BsTrash3 } from 'react-icons/bs';
 import { DELETE_COMPANY } from '../../types/mutations';
+import { RiEdit2Line } from 'react-icons/ri';
 
 export const Company = () => {
   const { id } = useParams();
@@ -78,6 +79,14 @@ export const Company = () => {
       onClick: () => handleDelete(),
       ...defaultStyleIconText,
     },
+    {
+      icon: RiEdit2Line,
+      text: 'Edit',
+      onClick: () => {
+        navigate(`/comedit/${id}`);
+      },
+      ...defaultStyleIconText,
+    },
   ];
 
   return error ? (
@@ -96,6 +105,7 @@ export const Company = () => {
           <h1 className='font-extrabold'>{d.name}</h1>
           <p>{d.description}</p>
           <p>{d.type}</p>
+          <p className='italic'>{`Organizations: ${d.organization.length}`}</p>
         </div>
       </article>
       <ButtonBar buttons={buttons} />

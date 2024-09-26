@@ -4,10 +4,13 @@ import { GET_DEPARTMENTS } from '../../types/queries';
 import { GetDepartmentsQuery } from '../../graphTypes/graphql';
 import { useMutation, useQuery } from '@apollo/client';
 import { NoRecords } from '../norecords';
-import StyledIconText from '../../lib/styledIconText';
+import { StyledIconText } from '../../types/styledIconTxt';
 import { FaTrash } from 'react-icons/fa';
 import { defaultStyleIconText } from '../styling/styles';
 import { DELETE_DEPT } from '../../types/mutations';
+import { RiEdit2Line } from 'react-icons/ri';
+import { ButtonBar } from '../../lib/buttonBar';
+import { BsTrash3 } from 'react-icons/bs';
 
 export const Department = () => {
   const { id } = useParams();
@@ -23,6 +26,7 @@ export const Department = () => {
           isMarkedDelete: false,
         },
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
 
@@ -47,6 +51,23 @@ export const Department = () => {
     }
   };
 
+  const buttons: StyledIconText[] = [
+    {
+      icon: BsTrash3,
+      text: 'Delete',
+      onClick: () => handleDelete(),
+      ...defaultStyleIconText,
+    },
+    {
+      icon: RiEdit2Line,
+      text: 'Edit',
+      onClick: () => {
+        navigate(`/deptedit/${id}`);
+      },
+      ...defaultStyleIconText,
+    },
+  ];
+
   if (!loading && (!data || !data.departments || data.departments.length < 1))
     return <NoRecords />;
   const d = data?.departments[0];
@@ -66,15 +87,14 @@ export const Department = () => {
         <div className='mt-3 rounded-md drop-shadow-custom-m-gray text-center w-1/2 border-2 border-blue mr-1'>
           <h1 className='font-extrabold'>{d.name}</h1>
           <p>{d.description}</p>
+          {d.organization && d.organization.length > 0 ? (
+            <p>Reports to: {d.organization[0].name}</p>
+          ) : (
+            <></>
+          )}
         </div>
-        <StyledIconText
-          icon={FaTrash}
-          text={''}
-          onClick={handleDelete}
-          size={defaultStyleIconText.size}
-          iconClass={defaultStyleIconText.iconClass}
-        />
       </article>
+      <ButtonBar buttons={buttons} />
     </section>
   );
 };

@@ -111,14 +111,10 @@ query GetDepartments($where: DepartmentWhere, $options: DepartmentOptions) {
     instanceId
     description
     isMarkedDelete
-  }
-  companies {
-    name
-    instanceId
-  }
-  organizations {
-    name
-    instanceId
+    organization {
+      name
+      instanceId
+    }
   }
 }
 `);

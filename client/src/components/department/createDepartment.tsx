@@ -23,6 +23,7 @@ import { useAppSelector } from '../../store/storeHooks';
 export const CreateDepartment = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  console.log('ID: ' + id);
   let coid = null;
   const {
     register,
@@ -35,6 +36,7 @@ export const CreateDepartment = () => {
   if (id) {
     const ires = useAppSelector((state) => selectParentByOrgId(state, id));
     coid = ires && ires.parent ? ires.parent : null;
+    console.log('COID: ' + coid);
   }
 
   const onSubmit = async (dept: NewDepartment) => {
