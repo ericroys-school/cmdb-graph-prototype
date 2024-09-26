@@ -17,6 +17,9 @@ import { OrganizationList } from './components/organization/organizationList.tsx
 import { Department } from './components/department/department.tsx';
 import { AboutPage } from './pages/about/index.tsx';
 import { ErrorPage } from './components/error/error.tsx';
+import { EditCompany } from './components/company/editCompany.tsx';
+import { EditOrganization } from './components/organization/editOrganization.tsx';
+import { EditDepartment } from './components/department/editDepartment.tsx';
 
 const router = createBrowserRouter([
   {
@@ -33,12 +36,24 @@ const router = createBrowserRouter([
         element: <CreateCompany />,
       },
       {
+        path: '/comedit/:id',
+        element: <EditCompany />,
+      },
+      {
         path: '/orgcreate',
         element: <CreateOrganization />,
       },
       {
+        path: '/orgedit/:id',
+        element: <EditOrganization />,
+      },
+      {
         path: '/deptcreate',
         element: <CreateDepartment />,
+      },
+      {
+        path: '/deptedit/:id',
+        element: <EditDepartment />,
       },
       {
         path: '/company/:id',

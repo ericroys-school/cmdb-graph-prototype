@@ -11,6 +11,17 @@ export const CREATE_COMPANY = gql`
   }
 `;
 
+export const UPDATE_COMPANY = gql(`
+mutation updateCompanies($update: CompanyUpdateInput, $where: CompanyWhere) {
+  updateCompanies(update: $update, where: $where) {
+    companies {
+      instanceId
+      name
+    }
+  }
+}
+`);
+
 export const DELETE_COMPANY = gql(`
 mutation DeleteCompanies($where: CompanyWhere) {
   deleteCompanies(where: $where) {
@@ -33,6 +44,17 @@ export const CREATE_ORG = gql`
     }
   }
 `;
+
+export const UPDATE_ORG = gql(`
+mutation updateOrganizations($where: OrganizationWhere, $update: OrganizationUpdateInput) {
+  updateOrganizations(where: $where, update: $update) {
+    organizations {
+      name
+      instanceId
+    }
+  }
+}
+`);
 
 export const DELETE_ORG = gql(`
 mutation DeleteOrganizations($where: OrganizationWhere) {
@@ -58,6 +80,17 @@ export const CREATE_DEPT = gql`
     }
   }
 `;
+
+export const UPDATE_DEPT = gql(`
+mutation updateDepartments($where: DepartmentWhere, $update: DepartmentUpdateInput) {
+  updateDepartments(where: $where, update: $update) {
+    departments {
+      name
+      instanceId
+    }
+  }
+}
+`);
 
 export const DELETE_DEPT = gql(`
 mutation deleteDepartments($delete: DepartmentDeleteInput, $where: DepartmentWhere) {

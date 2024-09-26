@@ -13,6 +13,7 @@ import { ButtonBar } from '../../lib/buttonBar';
 import { DepartmentList } from '../department/departmentList';
 import { BsTrash3 } from 'react-icons/bs';
 import { DELETE_ORG } from '../../types/mutations';
+import { RiEdit2Line } from 'react-icons/ri';
 
 export const Organization = () => {
   const { id } = useParams();
@@ -83,6 +84,14 @@ export const Organization = () => {
       onClick: () => handleDelete(),
       ...defaultStyleIconText,
     },
+    {
+      icon: RiEdit2Line,
+      text: 'Edit',
+      onClick: () => {
+        navigate(`/orgedit/${id}`);
+      },
+      ...defaultStyleIconText,
+    },
   ];
 
   return error ? (
@@ -105,7 +114,7 @@ export const Organization = () => {
               ? `Organizes: ${d.company[0].name}`
               : ''}
           </p>
-          <p>{`departments: ${d.departments.length}`}</p>
+          <p className='italic'>{`Departments: ${d.departments.length}`}</p>
         </div>
       </article>
       <ButtonBar buttons={buttons} />
