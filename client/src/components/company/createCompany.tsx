@@ -92,7 +92,7 @@ export const CreateCompany = () => {
             placeholder='A Description'
             className={inputclass}
           />
-          {errors.name && (
+          {errors.description && (
             <p className={errclass}>{`${errors.description?.message}`}</p>
           )}
           <label htmlFor='type' className={lblClass}>
@@ -104,7 +104,7 @@ export const CreateCompany = () => {
             placeholder='What type of company'
             className={inputclass}
           />
-          {errors.name && (
+          {errors.type && (
             <p className={errclass}>{`${errors.type?.message}`}</p>
           )}
           <div className='flex justify-center'>

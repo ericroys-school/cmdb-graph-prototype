@@ -113,7 +113,7 @@ export const CreateOrganization = () => {
             placeholder='A Description'
             className={inputclass}
           />
-          {errors.name && (
+          {errors.description && (
             <p className={errclass}>{`${errors.description?.message}`}</p>
           )}
 

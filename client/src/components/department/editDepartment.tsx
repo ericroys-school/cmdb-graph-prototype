@@ -54,7 +54,6 @@ export const EditDepartment = () => {
 
   const onSubmit = async () => {
     try {
-      console.log('kskdjfkljsd;lj');
       const { errors } = await changeDepartment();
       if (!errors) {
         navigate(id ? `/department/${id}` : '-1');
@@ -112,7 +111,7 @@ export const EditDepartment = () => {
             placeholder='A Description'
             className={inputclass}
           />
-          {errors.name && (
+          {errors.description && (
             <p className={errclass}>{`${errors.description?.message}`}</p>
           )}
 
